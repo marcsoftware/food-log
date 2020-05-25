@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html>
+
+<meta charset="UTF-8">
+
+<head>
+    
+    <style>
+        #rightside{
+            float:left;
+            width:20%;
+            padding: 0px;
+        }
+
+        .nav{
+          padding: 0px;
+          margin:0px;
+          cursor:pointer;
+        }
+
+
+        #date_container{
+          padding: 0px;
+          margin:0px;
+          color:grey;
+          float:left;
+          width: 50%;
+          cursor:pointer;
+        }
+
+        #count{
+          padding: 0px;
+          margin:0px;
+          color:red;
+          float:right;
+          text-align: right;
+          width: 50%;
+        }
+        #form{
+            float:left;
+            width:20%;
+        }
+
+
+        table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+
+}
+
+tr:hover {background-color:#f5f5f5;}
+
+    </style>
+
+
+<script>
+
+var database_url='http://localhost:5000/demo';
+//var database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+
+/*
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @GetMapping(path = "/name/{name}")
+  public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
+    return itemRepository.findByName(name);
+  }
+
+  //----------------------------------------------------------------------
+  // This returns a distinct-list of names.
+  // used to populate the dropdown  on the frontent
+  //----------------------------------------------------------------------
+  @GetMapping(path = "/list")
+  public @ResponseBody List<String> getFromTemplate() {
+    return itemRepository.getDistinctNamesCustomQuery();
+  }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
+
+
+window.onload=init;
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function init(){
+    getAllFoodOnDate();
+    getAllNames();
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+
+var stats;
+function getStats(){
+    name=document.getElementById('name').value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        
+        var result=this.responseText;
+        stats = result.replace(/[\[\]\"]+/g,'');
+        document.getElementById('stats').innerHTML=stats;
+        stats = stats.split(',');
+
+
+        }
+      };
+    xhttp.open("GET", database_url+"/stats/"+name, true);
+    xhttp.send();
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function printJSON(obj){
+    
+    for(var i =0;i<obj.length;i++){
+        print(obj[i]);
+    }
+}
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function print(data){
+  totalCal(data.consumed_calories);
+    document.getElementById("log").innerHTML +=`
+     <tr>
+    <td>${data.name}</td>
+    <td>${data.consumed_calories}</td>
+    <td>${data.consumed_unit+data.consumed_label}</td>
+    <td>${data.ratio_calories}</td>
+    <td>${data.ratio_unit+data.ratio_label}</td>
+    <td>${data.time}</td>
+  </tr>
+
+    `;
+}
+
+
+/**
+//---------------------------------------------------------------------
+//   CALCULATE TOTAL CALORIES FOR THE DAY
+//---------------------------------------------------------------------
+*/
+var total_cal_today=0.0; 
+function totalCal(number){
+  number=parseFloat(number);
+    total_cal_today+=number;
+    document.getElementById('count').innerHTML=total_cal_today;
+}
+
+/**
+//---------------------------------------------------------------------
+//  
+//---------------------------------------------------------------------
+*/
+ // get all food items from database   
+function getAllFood() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var result=this.responseText;
+        var obj = JSON.parse(result); 
+        printJSON(obj);
+      
+      
+    }
+  };
+  xhttp.open("GET", database_url+"/food", true);
+  xhttp.send();
+}
+
+
+
+/**
+//---------------------------------------------------------------------
+//  @GetMapping(path = "/date/{date}")
+//---------------------------------------------------------------------
+*/
+ // get all food items from database   
+function getAllFoodOnDate() {
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
+        document.getElementById('log').innerHTML='';
+        var result=this.responseText;
+        var obj = JSON.parse(result); 
+        printJSON(obj);
+      
+      
+    }
+  };
+  xhttp.open("GET", database_url+"/date/"+getDate(), true);
+  xhttp.send();
+}
+
+
+/**
+//---------------------------------------------------------------------
+// get names of all food to opulate the dropdown menu   @GetMapping(path = "/list")
+//---------------------------------------------------------------------
+*/
+ // get all food items from database   
+function getAllNames() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
+        
+        var result=this.responseText.replace(/[\[\]\"]/g,'').split(',');
+          
+        result=result.map(function (element) {
+          return `<option value="${element}">`;
+        });
+        
+        document.getElementById('listAll').innerHTML=result;
+      
+      
+    }
+  };
+  xhttp.open("GET", database_url+"/list", true);
+  xhttp.send();
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+// save form to database
+function save(){
+
+        getFormData();
+        doAlgebra();  
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+        var theUrl = database_url+"/food";
+        xmlhttp.open("POST", theUrl);
+        xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+       
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                 document.getElementById('log').innerHTML='';
+                 getAllFoodOnDate();
+                 clearFormData();
+
+
+            }
+        };
+
+      
+        var body = `
+                        {
+
+                            "name": "${name}",
+                            "consumed_calories": ${total_cal},
+                            "consumed_label": "${total_amount_label}",
+                            "consumed_unit": ${total_amount_unit},
+                            "ratio_calories": ${ratio_cal},
+                            "ratio_label": "${ratio_amount_label}",
+                            "ratio_unit": ${ratio_amount_unit},
+                            "date": "${getDate()}",
+                            "time": "${getTime()}",
+                            "userName":"marc"
+                        }`;
+
+        xmlhttp.send(body);
+        
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function getDate(){
+
+ 
+
+    var today = new Date();
+
+    today.setDate(today.getDate()+date_offset);
+
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = mm + '-' + dd + '-' + yyyy;
+document.getElementById('date').innerHTML=today;
+    return today;
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+var date_offset=0;
+function changeDate(number){
+
+   if(number===0){
+    date_offset=0;
+   }
+  date_offset+=number;
+  
+  getDate();
+  getAllFoodOnDate();
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function getTime(){
+    var today = new Date();
+var hh = String(today.getHours()).padStart(2, '0');
+var mm = String(today.getMinutes() + 1).padStart(2, '0'); //January is 0!
+var ss = String(today.getSeconds() + 1).padStart(2, '0'); //January is 0!
+
+today = hh + ':' + mm + ':' + ss;
+    return today;
+}
+
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+var name, total_amount,total_cal,ratio_amount,ratio_cal;
+var total_amount_unit, total_amount_label;
+var ratio_amount_unit, ratio_amount_label;
+// get datafrom form
+function getFormData(){
+     name= document.getElementById('name').value;
+     total_amount= removeLabel(document.getElementById('total_amount').value);
+     total_amount_label=total_amount[1];
+     total_amount_unit=total_amount[0];
+     total_cal= document.getElementById('total_cal').value;
+    
+     ratio_amount= removeLabel(document.getElementById('ratio_amount').value);
+     ratio_amount_label=ratio_amount[1];
+     ratio_amount_unit=ratio_amount[0];
+     ratio_cal= document.getElementById('ratio_cal').value;
+
+    
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+// clear datafrom form
+function clearFormData(){
+    document.getElementById('name').value='';
+    document.getElementById('total_amount').value='';
+    document.getElementById('total_cal').value='';
+
+    document.getElementById('ratio_amount').value='';
+    document.getElementById('ratio_cal').value='';
+
+    
+}
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+        //arg: item is an object that represents a food
+        // if solves all varibles that can be solved for.   
+        // total_cal = cal_per_serv / amount_per_serv * total_amount
+        // pre-condition: should call doUnitConversion(item) before this one to make sure units match
+        function doAlgebra(){
+
+
+           if(total_amount_label !== '' && total_cal === '' && ratio_amount_label === '' && ratio_cal ===''){
+                var index = (stats.indexOf(total_amount_label));
+                if (index >=0){
+                  ratio_amount_label=stats[index];
+                  ratio_amount_unit=stats[index+1];
+                  ratio_cal=stats[index+2];
+                }
+
+            }
+
+
+
+            if(ratio_amount_label===total_amount_label && total_amount_label !== ''){
+
+                if(total_cal === '' && ratio_cal !== ''){
+                    total_cal=(ratio_cal/ratio_amount_unit)*total_amount_unit;
+
+                }
+            }else if(total_amount_label !== '' && total_cal !== '' && ratio_amount_label===''){
+                ratio_amount_label=total_amount_label;
+                ratio_amount_unit=total_amount_unit;
+                ratio_cal=total_cal;
+            }
+
+           
+
+        }
+
+
+
+        /**
+        //---------------------------------------------------------------------
+        //
+        //---------------------------------------------------------------------
+        */
+        function removeLabel(ref){
+           if(typeof(ref) == ""){
+                return 0;
+            }
+              var x = ref.slice();
+                var label = '';
+                var number = '';
+
+                try{
+                    label = x.match(/[a-zA-Z]+/g).join('').trim();
+                                    
+                    number = x.match(/[\d\.]+/g);
+
+                }catch(e){
+                    console.log('ERROR in removeLabel(): the arg x was probably undefined');
+                }
+                
+                number = parseFloat(number);
+
+                if(label === null){
+                        label=' ';
+                    }
+                      
+
+                return [number,label];
+        }
+</script>
+<title>food log</title>
+</head>
+<body>
+
+<h2>food log</h2>
+
+
+
+
+
+
+
+    <div id="form">
+         <label for="fname">name:</label><br>
+          <input type="text" id="name" list="listAll" name="fname" onblur="getStats()" value=""><br>
+
+
+
+
+
+
+  <datalist id="listAll">
+    <option value="Edge">
+    <option value="Firefox">
+    <option value="Chrome">
+    <option value="Opera">
+    <option value="Safari">
+  </datalist>
+
+
+
+          <label for="lname">total amount:</label><br>
+          <input type="text" id="total_amount" name="lname" value=""><br>
+          <label for="lname">total cal:</label><br>
+          <input type="text" id="total_cal" name="lname" value=""><br>
+          <label for="lname">ratio amount:</label><br>
+          <input type="text" id="ratio_amount" name="lname" value=""><br>
+          <label for="lname">ratio cal:</label><br>
+          <input type="text" id="ratio_cal" name="lname" value=""><br>
+           <button type="button" onclick='save()'>save</button> 
+           <p id='stats'></p>
+    </div>
+
+<div id='rightside'>
+  <p id='date_container'>
+    <button class='nav' type="button" onclick='changeDate(-1)'>◀</button> 
+    <span id='date' onclick='changeDate(0)'></span>
+     <button class='nav' type="button" onclick='changeDate(1)'>▶</button> 
+  </p>
+  <p id='count'>count</p>
+    <table id="log"></table>
+</div>
+
+
+</body>
+</html>
