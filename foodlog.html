@@ -29,6 +29,10 @@
           cursor:pointer;
         }
 
+        #history{
+          float:right;
+          width: 100%;
+        }
         #count{
           padding: 0px;
           margin:0px;
@@ -98,6 +102,61 @@ window.onload=init;
 function init(){
     getAllFoodOnDate();
     getAllNames();
+    getWeekCalories();
+}
+
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+// TODO get rid of other date functions
+function getWeekCalories(){
+
+    
+    for(var i =1;i<=7;i++){
+        
+    
+        var target_date = getDateFormat(0-i);
+        getTotalFromDate(target_date);
+
+    }
+}
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function getDateFormat(offset){
+  var target_date = new Date();
+
+    target_date.setDate(target_date.getDate()+offset);
+
+    var dd = String(target_date.getDate()).padStart(2, '0');
+    var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = target_date.getFullYear();
+
+    target_date = mm + '-' + dd + '-' + yyyy;
+    return target_date;
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function getAverage(some_array){
+   var grades = some_array;
+    var total = 0;
+    for(var i = 0; i < grades.length; i++) {
+      total += parseFloat(grades[i]);
+    }
+    var avg = total / grades.length;
+    return avg.toFixed(2);
 }
 
 /**
@@ -138,6 +197,8 @@ function printJSON(obj){
 }
 
 
+
+
 /**
 //---------------------------------------------------------------------
 //
@@ -168,7 +229,7 @@ var total_cal_today=0.0;
 function totalCal(number){
   number=parseFloat(number);
     total_cal_today+=number;
-    document.getElementById('count').innerHTML=total_cal_today;
+    document.getElementById('count').innerHTML=total_cal_today.toFixed(2);
 }
 
 /**
@@ -216,6 +277,50 @@ function getAllFoodOnDate() {
   };
   xhttp.open("GET", database_url+"/date/"+getDate(), true);
   xhttp.send();
+}
+
+
+
+/**
+//---------------------------------------------------------------------
+//  
+//---------------------------------------------------------------------
+*/
+ 
+var day_totals=[];
+function getTotalFromDate(target_date) {
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
+
+      var result=this.responseText;
+      var obj = JSON.parse(result); 
+      var sum = getSum(obj);
+      day_totals.push(sum);
+      document.getElementById('history').innerHTML=getAverage(day_totals);
+        
+
+    }
+  };
+  xhttp.open("GET", database_url+"/date/"+target_date, true);
+  xhttp.send();
+}
+
+
+/**
+//---------------------------------------------------------------------
+// helper function for getting total calories on date
+//---------------------------------------------------------------------
+*/
+function getSum(obj){
+    var sum=0.0;
+    for(var i =0;i<obj.length;i++){
+       sum+=parseFloat(obj[i].consumed_calories);
+    }
+
+    return sum.toFixed(2);
 }
 
 
@@ -517,6 +622,8 @@ function clearFormData(){
   <p id='count'>count</p>
     <table id="log"></table>
 </div>
+
+<div id='history'>history<div>
 
 
 </body>
