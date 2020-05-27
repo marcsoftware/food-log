@@ -36,7 +36,9 @@
         #count{
           padding: 0px;
           margin:0px;
-          color:red;
+          color:white;
+          background-color:red;
+          font-family: consolas;
           float:right;
           text-align: right;
           width: 50%;
@@ -168,6 +170,9 @@ function getAverage(some_array){
 var stats;
 function getStats(){
     name=document.getElementById('name').value;
+    if(name===''){
+      return;
+    }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -209,7 +214,7 @@ function print(data){
     document.getElementById("log").innerHTML +=`
      <tr>
     <td>${data.name}</td>
-    <td>${data.consumed_calories}</td>
+    <td>${parseFloat(data.consumed_calories).toFixed(2)}</td>
     <td>${data.consumed_unit+data.consumed_label}</td>
     <td>${data.ratio_calories}</td>
     <td>${data.ratio_unit+data.ratio_label}</td>
@@ -337,12 +342,13 @@ function getAllNames() {
       total_cal_today=0.0;
         
         var result=this.responseText.replace(/[\[\]\"]/g,'').split(',');
-          
-        result=result.map(function (element) {
-          return `<option value="${element}">`;
-        });
         
-        document.getElementById('listAll').innerHTML=result;
+        result=result.map(function (element) {
+          return `<option value='${element}'>`;
+        });
+          
+        document.getElementById('listAll').innerHTML=result.join('');
+        
       
       
     }
@@ -444,7 +450,15 @@ function changeDate(number){
 */
 function getTime(){
     var today = new Date();
-var hh = String(today.getHours()).padStart(2, '0');
+
+
+var hh = today.getHours();
+if (hh>12){
+  hh=hh-12;
+}
+
+ hh = String(hh).padStart(2, '0');
+
 var mm = String(today.getMinutes() + 1).padStart(2, '0'); //January is 0!
 var ss = String(today.getSeconds() + 1).padStart(2, '0'); //January is 0!
 
