@@ -334,9 +334,12 @@ function getTotalFromDate(target_date) {
 function getHistoryAverage() {
     var target_date = getDateFormat(0);
     var today = total_cal_today;
-    day_totals[0]=0;
-    day_totals.push(today.toFixed(2));
-    var today_average= getAverage(day_totals );
+    var new_totals=day_totals.slice();
+    new_totals[0]=0;
+
+    alert(new_totals);
+    new_totals.push(today.toFixed(2));
+    var today_average= getAverage(new_totals);
     document.getElementById('average').innerHTML=today_average;
 }
 
