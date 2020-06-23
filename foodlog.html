@@ -33,6 +33,13 @@
           float:right;
           width: 100%;
         }
+
+        #average{
+          float:right;
+          width: 100%;
+          color:blue;
+        }
+
         #count{
           padding: 0px;
           margin:0px;
@@ -105,6 +112,7 @@ function init(){
     getAllFoodOnDate();
     getAllNames();
     getWeekCalories();
+
 }
 
 
@@ -123,7 +131,7 @@ function getWeekCalories(){
     
         var target_date = getDateFormat(0-i);
         getTotalFromDate(target_date);
-        getHistoryAverage(target_date);
+       
 
     }
 }
@@ -212,6 +220,7 @@ function printJSON(obj){
 */
 function print(data){
   totalCal(data.consumed_calories);
+   getHistoryAverage();
     document.getElementById("log").innerHTML +=`
      <tr>
     <td>${data.name}</td>
@@ -321,25 +330,13 @@ function getTotalFromDate(target_date) {
 //---------------------------------------------------------------------
 */
  
-var day_totals2=[];
-function getHistoryAverage(target_date) {
 
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
-
-      var result=this.responseText;
-      var obj = JSON.parse(result); 
-      var sum = getSum(obj);
-      day_totals2.push(sum);
-      document.getElementById('average').innerHTML=getAverage(day_totals2);
-        
-
-    }
-  };
-  xhttp.open("GET", database_url+"/date/"+target_date, true);
-  xhttp.send();
+function getHistoryAverage() {
+    var target_date = getDateFormat(0);
+    var today = total_cal_today;
+    day_totals.push(today.toFixed(2));
+    var today_average= getAverage(day_totals );
+    document.getElementById('average').innerHTML=today_average;
 }
 
 
@@ -654,6 +651,9 @@ function clearFormData(){
           <input type="text" id="ratio_cal" name="lname" value=""><br>
            <button type="button" onclick='save()'>save</button> 
            <p id='stats'></p>
+           <div id='history'>history</div>
+<div id='average'>average</div>  
+
     </div>
 
 <div id='rightside'>
@@ -666,8 +666,6 @@ function clearFormData(){
     <table id="log"></table>
 </div>
 
-<div id='history'>history<div>
-<div id='average'>average<div>  
 
 
 </body>
