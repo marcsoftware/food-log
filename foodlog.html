@@ -337,7 +337,7 @@ function getHistoryAverage() {
     var new_totals=day_totals.slice();
     new_totals[0]=0;
 
-    alert(new_totals);
+    
     new_totals.push(today.toFixed(2));
     var today_average= getAverage(new_totals);
     document.getElementById('average').innerHTML=today_average;
