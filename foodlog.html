@@ -134,6 +134,15 @@ function getWeekCalories(){
        
 
     }
+
+     for(var i =0;i<=6;i++){
+        
+    
+        var target_date = getDateFormat(0-i);
+        getTotalFromDate2(target_date);
+       
+
+    }
 }
 
 
@@ -220,7 +229,7 @@ function printJSON(obj){
 */
 function print(data){
   totalCal(data.consumed_calories);
-   getHistoryAverage();
+   
     document.getElementById("log").innerHTML +=`
      <tr>
     <td>${data.name}</td>
@@ -303,6 +312,7 @@ function getAllFoodOnDate() {
 */
  
 var day_totals=[];
+window.global_totals=[];
 function getTotalFromDate(target_date) {
 
   var xhttp = new XMLHttpRequest();
@@ -314,12 +324,15 @@ function getTotalFromDate(target_date) {
       var obj = JSON.parse(result); 
       var sum = getSum(obj);
       day_totals.push(sum);
-      document.getElementById('history').innerHTML=getAverage(day_totals);
+      var clone =day_totals.slice();
+      document.getElementById('history').innerHTML=getAverage(clone);
+      
+      global_totals=day_totals.slice();
         
 
     }
   };
-  xhttp.open("GET", database_url+"/date/"+target_date, true);
+  xhttp.open("GET", database_url+"/date/"+target_date, false);
   xhttp.send();
 }
 
@@ -331,16 +344,26 @@ function getTotalFromDate(target_date) {
 */
  
 
-function getHistoryAverage() {
-    var target_date = getDateFormat(0);
-    var today = total_cal_today;
-    var new_totals=day_totals.slice(1);
-    
+function getTotalFromDate2(target_date) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
 
-    
-    new_totals.push(today.toFixed(2));
-    var today_average= getAverage(new_totals);
-    document.getElementById('average').innerHTML=today_average;
+      var result=this.responseText;
+      var obj = JSON.parse(result); 
+      var sum = getSum(obj);
+      day_totals.push(sum);
+      var clone =day_totals.slice();
+      document.getElementById('average').innerHTML=getAverage(clone);
+      
+      global_totals=day_totals.slice();
+        
+
+    }
+  };
+  xhttp.open("GET", database_url+"/date/"+target_date, false);
+  xhttp.send();
 }
 
 
@@ -657,6 +680,7 @@ function clearFormData(){
            <p id='stats'></p>
            <div id='history'>history</div>
 <div id='average'>average</div>  
+<div id='debug'></div>  
 
     </div>
 
