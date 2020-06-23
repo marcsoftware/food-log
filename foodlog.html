@@ -123,6 +123,7 @@ function getWeekCalories(){
     
         var target_date = getDateFormat(0-i);
         getTotalFromDate(target_date);
+        getHistoryAverage(target_date);
 
     }
 }
@@ -321,7 +322,7 @@ function getTotalFromDate(target_date) {
 */
  
 var day_totals2=[];
-function getTotalFromDate(target_date) {
+function getHistoryAverage(target_date) {
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
