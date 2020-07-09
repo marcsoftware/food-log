@@ -417,9 +417,11 @@ function getAllNames() {
 */
 // save form to database
 function save(){
-
+        
         getFormData();
-        doAlgebra();  
+        
+        doAlgebra();
+
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
         var theUrl = database_url+"/food";
         xmlhttp.open("POST", theUrl);
@@ -437,7 +439,35 @@ function save(){
             }
         };
 
-      
+ //TODO check undefined
+      /*
+         {
+
+                          {
+
+                            "name": "coke",
+                            "consumed_calories": ,
+                            "consumed_label": "b",
+                            "consumed_unit": 1,
+                            "ratio_calories": ,
+                            "ratio_label": "null",
+                            "ratio_unit": 0,
+                            "date": "07-09-2020",
+                            "time": "04:09:02",
+                            "userName":"marc"
+                        }
+                        }
+                            */
+
+
+        if(ratio_cal == ''){
+            ratio_cal='0';
+        }  
+
+        if(total_cal == ''){
+            total_cal='0';
+        }  
+
         var body = `
                         {
 
@@ -505,7 +535,7 @@ function getTime(){
     var today = new Date();
 
 
-var hh = today.getHours();
+var hh = today.getHours();   
 if (hh>12){
   hh=hh-12;
 }
@@ -565,6 +595,15 @@ function clearFormData(){
 
 /**
 //---------------------------------------------------------------------
+// convert between g and oz
+//---------------------------------------------------------------------
+*/
+function convert(){
+
+}
+
+/**
+//---------------------------------------------------------------------
 //
 //---------------------------------------------------------------------
 */
@@ -576,7 +615,7 @@ function clearFormData(){
 
 
            if(total_amount_label !== '' && total_cal === '' && ratio_amount_label === '' && ratio_cal ===''){
-                var index = (stats.indexOf(total_amount_label));
+                var index = (stats.indexOf(total_amount_label)); //todo error?
                 if (index >=0){
                   ratio_amount_label=stats[index];
                   ratio_amount_unit=stats[index+1];
@@ -611,8 +650,10 @@ function clearFormData(){
         //---------------------------------------------------------------------
         */
         function removeLabel(ref){
-           if(typeof(ref) == ""){
-                return 0;
+             console.log( ref);
+           if((ref) == ""){
+                return [0,'null'];
+                
             }
               var x = ref.slice();
                 var label = '';
@@ -625,6 +666,8 @@ function clearFormData(){
 
                 }catch(e){
                     console.log('ERROR in removeLabel(): the arg x was probably undefined');
+                    label='';
+                    number=0;
                 }
                 
                 number = parseFloat(number);
