@@ -419,7 +419,7 @@ function getAllNames() {
 function save(){
         
         getFormData();
-        
+        convert();
         doAlgebra();
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
@@ -599,7 +599,11 @@ function clearFormData(){
 //---------------------------------------------------------------------
 */
 function convert(){
-
+    if(total_amount_label === 'oz' && ratio_amount_label==='g'){
+        ratio_amount_label='oz';
+        ratio_amount_unit *= 0.035274;
+        
+    }
 }
 
 /**
@@ -612,27 +616,42 @@ function convert(){
         // total_cal = cal_per_serv / amount_per_serv * total_amount
         // pre-condition: should call doUnitConversion(item) before this one to make sure units match
         function doAlgebra(){
+            var index;
+             if(stats.indexOf('g')>=0 && ratio_amount_label ==='null' && total_amount_label==='oz'){
+                    index=stats.indexOf('g'); //TODO refactor this
+                    
+                   ratio_amount_label='g';
+                    ratio_amount_label=stats[index];
+                  ratio_amount_unit=stats[index+1];
+                  ratio_cal=stats[index+2];
+                   alert(index);
+                  convert();
 
 
-           if(total_amount_label !== '' && total_cal === '' && ratio_amount_label === '' && ratio_cal ===''){
-                var index = (stats.indexOf(total_amount_label)); //todo error?
+                }
+
+           if(total_amount_label !== 'null' && total_cal === '' && ratio_amount_label === 'null' && ratio_cal ===''){
+                 index = (stats.indexOf(total_amount_label)); 
+               
                 if (index >=0){
                   ratio_amount_label=stats[index];
                   ratio_amount_unit=stats[index+1];
                   ratio_cal=stats[index+2];
+                   alert(index);
+                  convert();
                 }
 
             }
 
 
 
-            if(ratio_amount_label===total_amount_label && total_amount_label !== ''){
+            if(ratio_amount_label===total_amount_label && total_amount_label !== 'null'){
 
                 if(total_cal === '' && ratio_cal !== ''){
                     total_cal=(ratio_cal/ratio_amount_unit)*total_amount_unit;
 
                 }
-            }else if(total_amount_label !== '' && total_cal !== '' && ratio_amount_label===''){
+            }else if(total_amount_label !== 'null' && total_cal !== '' && ratio_amount_label==='null'){
                 ratio_amount_label=total_amount_label;
                 ratio_amount_unit=total_amount_unit;
                 ratio_cal=total_cal;
