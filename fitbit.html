@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="UTF-8">
+
+<script>
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    function getAuthCode() {
+        var code=document.getElementById('code').value;
+      var xhttp = new XMLHttpRequest();
+      
+
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var token =  JSON.parse(this.responseText).access_token;
+            document.cookie = "token="+token+"; expires=Thu, 18 Dec 5013 12:00:00 UTC" ; 
+            setCookie("token",token);
+          document.getElementById("authcode").value = token;
+          getHeartToday(token)
+        }
+      };
+
+      
+
+      xhttp.open("POST", "https://api.fitbit.com/oauth2/token?code="+code+"&grant_type=authorization_code&redirect_uri=http://localhost", true);
+      xhttp.setRequestHeader('Authorization', 'Basic MjJCVlpDOmRjMTFjNzYwNTA4MjRmYjUwMWRjODhmNWRjYzRlOWE0'); // THIS is base64 of id and another thing.
+      xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      xhttp.send();
+    }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+    function getHeartToday(token){
+
+        if(token==='none'){
+            token=getCookie("token");
+        }
+      var code=document.getElementById('code').value;
+      var xhttp = new XMLHttpRequest();
+      
+
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var object =  JSON.parse(this.responseText);
+          document.getElementById("results").innerHTML = this.responseText;
+          getHeartToday(token)
+        }
+      };
+
+      
+
+      xhttp.open("GET", "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d.json?date=today&period=1d", true);
+      xhttp.setRequestHeader('Authorization', 'Basic '+token); // THIS is base64 of id and another thing.
+
+
+      xhttp.send();
+
+
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+
+    function setCookie(cname, cvalue) {
+          var d = new Date();
+          d.setTime(d.getTime() + (10000*24*60*60*1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            document.getElementById('authcode').value=c.substring(name.length, c.length);
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+</script>
+
+<body>
+<a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22BVZC&redirect_uri=http://localhost&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">url for code</a>
+
+<input type="text" id='code' /><br/>
+
+ <button onclick="getAuthCode()">get auth code</button> <br/>
+ <textarea id='authcode'>  EMPTY</textarea><br/>
+
+ <button onclick="getHeartToday('none')">get heart</button> 
+ <p id='results' >EMPTY</p>
+
+</body>
+</html>
