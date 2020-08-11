@@ -40,6 +40,12 @@
           color:blue;
         }
 
+         #average30{
+          float:right;
+          width: 100%;
+          color:green;
+        }
+
         #count{
           padding: 0px;
           margin:0px;
@@ -122,7 +128,7 @@ function init(){
 //
 //---------------------------------------------------------------------
 */
-// TODO get rid of other date functions
+// TODO get rid of other date functions REFACTOR
 function getWeekCalories(){
 
     
@@ -135,6 +141,32 @@ function getWeekCalories(){
 
     }
 
+
+    for(var i =1;i<=30;i++){
+        
+    
+        var target_date = getDateFormat(0-i);
+        getTotalFromDate30(target_date);
+       
+
+    }
+
+    get6dayaverage();
+}
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+// TODO get rid of other date functions REFACTOR
+function get6dayaverage(){
+
+    
+   
+
+
      for(var i =0;i<=6;i++){
         
     
@@ -144,7 +176,6 @@ function getWeekCalories(){
 
     }
 }
-
 
 /**
 //---------------------------------------------------------------------
@@ -336,6 +367,37 @@ function getTotalFromDate(target_date) {
   xhttp.send();
 }
 
+/**
+//---------------------------------------------------------------------
+//   calculates 30 day average from previous 30 days not icluding today
+//---------------------------------------------------------------------
+*/
+ 
+var day_totals=[];
+window.global_totals=[];
+function getTotalFromDate30(target_date) {
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
+
+      var result=this.responseText;
+      var obj = JSON.parse(result); 
+      var sum = getSum(obj);
+      day_totals.push(sum);
+      var clone =day_totals.slice();
+      document.getElementById('average30').innerHTML=getAverage(clone); // TODO this is the only line that changes
+      
+      global_totals=day_totals.slice();
+        
+
+    }
+  };
+  xhttp.open("GET", database_url+"/date/"+target_date, false);
+  xhttp.send();
+}
+
 
 /**
 //---------------------------------------------------------------------
@@ -434,7 +496,7 @@ function save(){
                  document.getElementById('log').innerHTML='';
                  getAllFoodOnDate();
                  clearFormData();
-
+                 get6dayaverage();
 
             }
         };
@@ -740,6 +802,7 @@ function convert(){
           <input type="text" id="ratio_cal" name="lname" value=""><br>
            <button type="button" onclick='save()'>save</button> 
            <p id='stats'></p>
+           <div id='average30'>average30</div>  
            <div id='history'>history</div>
 <div id='average'>average</div>  
 <div id='debug'></div>  
