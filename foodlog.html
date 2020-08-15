@@ -29,12 +29,12 @@
           cursor:pointer;
         }
 
-        #history{
+        #average7today{
           float:right;
           width: 100%;
         }
 
-        #average{
+        #average7{
           float:right;
           width: 100%;
           color:blue;
@@ -201,27 +201,7 @@ var the_average = getAverage(clone);
 }
 
 
-/**
-//---------------------------------------------------------------------
-//
-//---------------------------------------------------------------------
-*/
-// TODO get rid of other date functions REFACTOR
-function get6dayaverage(){
 
-    
-   
-
-
-     for(var i =0;i<=6;i++){
-        
-    
-        var target_date = getDateFormat(0-i);
-        getTotalFromDate2(target_date);
-       
-
-    }
-}
 
 /**
 //---------------------------------------------------------------------
@@ -385,66 +365,12 @@ function getAllFoodOnDate() {
 }
 
 
-/**
-//---------------------------------------------------------------------
-//   calculates 30 day average from previous 30 days not icluding today
-//---------------------------------------------------------------------
-*/
- 
+// TODO move this variables ?
 var day_totals=[];
 window.global_totals=[];
-function getTotalFromDate30(target_date) {
-
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
-
-      var result=this.responseText;
-      var obj = JSON.parse(result); 
-      var sum = getSum(obj);
-      day_totals.push(sum);
-      var clone =day_totals.slice();
-      document.getElementById('average30').innerHTML=getAverage(clone); // TODO this is the only line that changes
-      
-      global_totals=day_totals.slice();
-        
-
-    }
-  };
-  xhttp.open("GET", database_url+"/date/"+target_date, false);
-  xhttp.send();
-}
 
 
-/**
-//---------------------------------------------------------------------
-//   calculates 6 day average from previous 6 plus today
-//---------------------------------------------------------------------
-*/
- 
 
-function getTotalFromDate2(target_date) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
-
-      var result=this.responseText;
-      var obj = JSON.parse(result); 
-      var sum = getSum(obj);
-      day_totals.push(sum);
-      var clone =day_totals.slice();
-      document.getElementById('average').innerHTML=getAverage(clone);
-      
-      global_totals=day_totals.slice();
-        
-
-    }
-  };
-  xhttp.open("GET", database_url+"/date/"+target_date, false);
-  xhttp.send();
-}
 
 
 /**
