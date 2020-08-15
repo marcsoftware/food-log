@@ -134,27 +134,18 @@ function init(){
 function getWeekCalories(){
 
     getCalorieArray();
-
-    for(var i =1;i<=7;i++){
-        
-    
-        var target_date = getDateFormat(0-i);
-        getTotalFromDate(target_date);
+    var days;
+    // get last 7 days not including today
+    days = avg_array.slice(1,6);
+    document.getElementById('average7').innerHTML=getAverage(days);
        
-
-    }
-
-
-    for(var i =1;i<=30;i++){
-        
+    days = avg_array.slice(1,30);
+    document.getElementById('average30').innerHTML=getAverage(days);   
+  
+    days = avg_array.slice(0,6);
     
-        var target_date = getDateFormat(0-i);
-        getTotalFromDate30(target_date);
-       
-
-    }
-
-    get6dayaverage();
+    document.getElementById('average7today').innerHTML=getAverage(days); 
+    
 }
 
 /**
@@ -256,12 +247,16 @@ function getDateFormat(offset){
 //---------------------------------------------------------------------
 */
 function getAverage(some_array){
+  
    var grades = some_array;
+  
     var total = 0;
     for(var i = 0; i < grades.length; i++) {
-      total += parseFloat(grades[i]);
+      var number = parseFloat(grades[i]);
+         total +=  number;
     }
     var avg = total / grades.length;
+    
     return avg.toFixed(2);
 }
 
@@ -389,38 +384,6 @@ function getAllFoodOnDate() {
   xhttp.send();
 }
 
-
-
-/**
-//---------------------------------------------------------------------
-//   calculates 7 day average from previous 7 days not icluding today
-//---------------------------------------------------------------------
-*/
- 
-var day_totals=[];
-window.global_totals=[];
-function getTotalFromDate(target_date) {
-
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
-
-      var result=this.responseText;
-      var obj = JSON.parse(result); 
-      var sum = getSum(obj);
-      day_totals.push(sum);
-      var clone =day_totals.slice();
-      document.getElementById('history').innerHTML=getAverage(clone);
-      
-      global_totals=day_totals.slice();
-        
-
-    }
-  };
-  xhttp.open("GET", database_url+"/date/"+target_date, false);
-  xhttp.send();
-}
 
 /**
 //---------------------------------------------------------------------
@@ -858,8 +821,8 @@ function convert(){
            <button type="button" onclick='save()'>save</button> 
            <p id='stats'></p>
            <div id='average30'>average30</div>  
-           <div id='history'>history</div>
-           <div id='average'>average</div> 
+           <div id='average7'>history</div>
+           <div id='average7today'>average</div> 
            <div >---</div>
            <div id='array'>array</div>
  
