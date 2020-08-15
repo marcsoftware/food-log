@@ -169,6 +169,7 @@ function getWeekCalories(){
     var days;
     // get last 7 days not including today
     days = avg_array.slice(1,6);
+
     document.getElementById('average7').innerHTML=getAverage(days);
        
     days = avg_array.slice(1,30);
@@ -220,11 +221,8 @@ function getTotalSmart(target_date) {
       calorie_array.push(sum);
       var clone =calorie_array.slice();
 
-var the_average = getAverage(clone);
-      
-      avg_array.push(the_average);
-      global_totals=day_totals.slice();
-        document.getElementById('array').innerHTML=avg_array;
+      avg_array.push(sum);
+      document.getElementById('array').innerHTML=avg_array;
 
     }
   };
