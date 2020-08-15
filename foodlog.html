@@ -147,7 +147,7 @@ function drawGraph(){
 
     for(var i =0;i<avg_array.length;i++){
       var date = getDateFormat(0-i);
-      var width=avg_array[i]*10;
+      var width=avg_array[i]/8;
       var number =avg_array[i];
       handle.innerHTML+=date+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
 
