@@ -7,6 +7,19 @@
 <head>
     
     <style>
+
+      .block{
+        background-color: blue;
+        color:white;
+        display: inline-block;
+        margin-bottom : 1px;
+        margin-right: 1px;
+      }
+      #graph{
+        float:right;
+        width: 100%;
+      }
+
         #rightside{
             float:left;
             width:20%;
@@ -120,6 +133,25 @@ function init(){
     getAllFoodOnDate();
     getAllNames();
     getWeekCalories();
+    drawGraph();
+
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function drawGraph(){
+    var handle = document.getElementById('graph');
+
+    for(var i =0;i<avg_array.length;i++){
+      var date = getDateFormat(0-i);
+      var width=avg_array[i]*10;
+      var number =avg_array[i];
+      handle.innerHTML+=date+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
+
+    }
 
 }
 
@@ -765,8 +797,8 @@ function convert(){
   <p id='count'>count</p>
     <table id="log"></table>
 </div>
-
-
+<br/>
+<div id='graph'></div>
 
 </body>
 </html>
