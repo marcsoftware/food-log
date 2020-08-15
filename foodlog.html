@@ -60,7 +60,9 @@
             float:left;
             width:20%;
         }
-
+        #array{
+          color: red;
+        }
 
         table {
   border-collapse: collapse;
@@ -131,7 +133,8 @@ function init(){
 // TODO get rid of other date functions REFACTOR
 function getWeekCalories(){
 
-    
+    getCalorieArray();
+
     for(var i =1;i<=7;i++){
         
     
@@ -152,6 +155,58 @@ function getWeekCalories(){
     }
 
     get6dayaverage();
+}
+
+/**
+//---------------------------------------------------------------------
+// put day calories totals from the last 30 days.
+//---------------------------------------------------------------------
+*/
+function getCalorieArray(){
+    for(var i =0;i<=30;i++){
+        
+    
+        var target_date = getDateFormat(0-i);
+        getTotalSmart(target_date);
+       
+
+    }
+}
+
+
+/**
+//---------------------------------------------------------------------
+//   TODO stores total from date in an array-element
+//    index 0 is the lastest date
+//---------------------------------------------------------------------
+*/
+ 
+var calorie_array=[];
+var avg_array=[];
+window.calorie_array=[];
+function getTotalSmart(target_date) {
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
+
+      var result=this.responseText;
+      var obj = JSON.parse(result); 
+      var sum = getSum(obj);
+      calorie_array.push(sum);
+      var clone =calorie_array.slice();
+
+var the_average = getAverage(clone);
+      
+      avg_array.push(the_average);
+      global_totals=day_totals.slice();
+        document.getElementById('array').innerHTML=avg_array;
+
+    }
+  };
+  xhttp.open("GET", database_url+"/date/"+target_date, false);
+  xhttp.send();
 }
 
 
@@ -804,7 +859,10 @@ function convert(){
            <p id='stats'></p>
            <div id='average30'>average30</div>  
            <div id='history'>history</div>
-<div id='average'>average</div>  
+           <div id='average'>average</div> 
+           <div >---</div>
+           <div id='array'>array</div>
+ 
 <div id='debug'></div>  
 
     </div>
