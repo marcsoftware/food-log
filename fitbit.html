@@ -55,12 +55,14 @@
             var object =  JSON.parse(this.responseText);
           document.getElementById("results").innerHTML = this.responseText;
           getHeartToday(token)
+        }else{
+        	document.getElementById("error").innerHTML = this.responseText;
         }
       };
 
       
-
-      xhttp.open("GET", "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d.json?date=today&period=1d", true);
+//https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
+      xhttp.open("GET", "https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json", true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
 
 
@@ -112,6 +114,7 @@
 
  <button onclick="getHeartToday('none')">get heart</button> 
  <p id='results' >EMPTY</p>
+ <p id='error' >error</p>
 
  
 
