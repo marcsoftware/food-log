@@ -160,7 +160,12 @@ function drawGraph(){
     var metabolism=2000; // calorie burn perday;
     var total_metabolism = metabolism*avg_array.length;
     var burned = total_metabolism-total;
-    document.getElementById('total').innerHTML=`   ${burned} calories burned ${(burned/3000)} pounds lost?  `;
+    var text = ['gained','burned'];
+    var isPositive=1;
+    if(burned <=0){
+        isPositive=0;
+    }
+    document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/3000)} pounds ${text[isPositive]}?  `;
 
 }
 
