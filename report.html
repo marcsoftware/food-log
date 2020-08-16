@@ -100,28 +100,7 @@ tr:hover {background-color:#f5f5f5;}
 <script>
 
 var database_url='http://localhost:5000/demo';
-//var database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
 
-/*
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @GetMapping(path = "/name/{name}")
-  public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
-    return itemRepository.findByName(name);
-  }
-
-  //----------------------------------------------------------------------
-  // This returns a distinct-list of names.
-  // used to populate the dropdown  on the frontent
-  //----------------------------------------------------------------------
-  @GetMapping(path = "/list")
-  public @ResponseBody List<String> getFromTemplate() {
-    return itemRepository.getDistinctNamesCustomQuery();
-  }
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
 
 
 window.onload=init;
@@ -749,7 +728,7 @@ function convert(){
                 return [number,label];
         }
 </script>
-<title>REPORT</title>
+<title>food log</title>
 </head>
 <body>
 
