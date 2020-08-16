@@ -201,7 +201,9 @@ function getSum(some_array){
  <button onclick="getHeartToday('none')">get heart</button> 
  <p id='results' >EMPTY</p>
  <p id='error' >error</p>
-<textarea id='json'>{
+<textarea id='json'>
+  
+{
   "activities-heart": [
     {
       "dateTime": "2020-08-01",
@@ -690,10 +692,10 @@ function getSum(some_array){
         "customHeartRateZones": [],
         "heartRateZones": [
           {
-            "caloriesOut": 447.09336,
+            "caloriesOut": 522.84672,
             "max": 100,
             "min": 30,
-            "minutes": 202,
+            "minutes": 244,
             "name": "Out of Range"
           },
           {
@@ -720,9 +722,47 @@ function getSum(some_array){
         ],
         "restingHeartRate": 56
       }
+    },
+    {
+      "dateTime": "2020-08-15",
+      "value": {
+        "customHeartRateZones": [],
+        "heartRateZones": [
+          {
+            "caloriesOut": 168.74198,
+            "max": 100,
+            "min": 30,
+            "minutes": 61,
+            "name": "Out of Range"
+          },
+          {
+            "caloriesOut": 0,
+            "max": 140,
+            "min": 100,
+            "minutes": 0,
+            "name": "Fat Burn"
+          },
+          {
+            "caloriesOut": 0,
+            "max": 170,
+            "min": 140,
+            "minutes": 0,
+            "name": "Cardio"
+          },
+          {
+            "caloriesOut": 0,
+            "max": 220,
+            "min": 170,
+            "minutes": 0,
+            "name": "Peak"
+          }
+        ]
+      }
     }
   ]
-}</textarea>
+}
+  
+</textarea>
  <button onclick="parse()">get heart</button> 
  <p id='burned' >EMPTY</p>
  <p id='total' ></p>
