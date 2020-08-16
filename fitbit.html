@@ -31,7 +31,7 @@ function init(){
 //--------------------------------------------------------------------------------------------------------------------------------
 
     function getAuthCode() {
-      
+          console.log('getAuthCode(){]');
         var code=document.getElementById('code').value;
         var xhttp = new XMLHttpRequest();
       
@@ -44,6 +44,7 @@ function init(){
             setCookie("token",token);
           document.getElementById("authcode").value = token;
           getHeartToday(token);
+        }
       };
 
       
@@ -54,7 +55,7 @@ function init(){
 
       xhttp.send();
     }
-}
+
 //--------------------------------------------------------------------------------------------------------------------------------
 //
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -149,6 +150,7 @@ function getDateFormat(offset){
     function parse(){
       //setCookie('raw',document.getElementById('json').value);
         localStorage.setItem("raw", document.getElementById('json').value);
+        document.getElementById('total').innerHTML='';
        var totalCal=0;
        var totalMinutes=0;
 
