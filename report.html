@@ -113,7 +113,7 @@ window.onload=init;
 */
 function init(){
     getAllFoodOnDate();
-    getAllNames();
+    //getAllNames();
     getWeekCalories();
     drawGraph();
 
@@ -316,17 +316,7 @@ function print(data){
 }
 
 
-/**
-//---------------------------------------------------------------------
-//   CALCULATE TOTAL CALORIES FOR THE DAY
-//---------------------------------------------------------------------
-*/
-var total_cal_today=0.0; 
-function totalCal(number){
-  number=parseFloat(number);
-    total_cal_today+=number;
-    document.getElementById('count').innerHTML=total_cal_today.toFixed(2);
-}
+
 
 /**
 //---------------------------------------------------------------------
@@ -724,38 +714,6 @@ function convert(){
 
 
 
-
-
-
-
-    <div id="form">
-         <label for="fname">name:</label><br>
-          <input type="text" id="name" list="listAll" name="fname" onblur="getStats()" value=""><br>
-
-
-
-
-
-
-  <datalist id="listAll">
-    <option value="Edge">
-    <option value="Firefox">
-    <option value="Chrome">
-    <option value="Opera">
-    <option value="Safari">
-  </datalist>
-
-
-
-          <label for="lname">total amount:</label><br>
-          <input type="text" id="total_amount" name="lname" value=""><br>
-          <label for="lname">total cal:</label><br>
-          <input type="text" id="total_cal" name="lname" value=""><br>
-          <label for="lname">ratio amount:</label><br>
-          <input type="text" id="ratio_amount" name="lname" value=""><br>
-          <label for="lname">ratio cal:</label><br>
-          <input type="text" id="ratio_cal" name="lname" value=""><br>
-           <button type="button" onclick='save()'>save</button> 
            <p id='stats'></p>
            <div id='average30'>average30</div>  
            <div id='average7'>history</div>
@@ -769,11 +727,11 @@ function convert(){
 
 <div id='rightside'>
   <p id='date_container'>
-    <button class='nav' type="button" onclick='changeDate(-1)'>◀</button> 
+    
     <span id='date' onclick='changeDate(0)'></span>
-     <button class='nav' type="button" onclick='changeDate(1)'>▶</button> 
+    
   </p>
-  <p id='count'>count</p>
+ 
     <table id="log"></table>
 </div>
 <br/>
