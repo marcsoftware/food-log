@@ -120,7 +120,7 @@
        
       for(var i = 0;i<30;i++){
           var list = getMinutes(i);
-          output(`${list[0]} <p class='block' style='width:${list[2]/2}px'>${list[2]+' | '+list[1]}</p><br/>`);
+          output(`${list[0]} <p class='block' style='width:${list[2]/2}px'>${list[2]} | ${list[1]} ( ${Math.round(list[2]/list[1])})</p><br/>`);
           
       }
 

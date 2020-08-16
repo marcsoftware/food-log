@@ -8,6 +8,9 @@
     
     <style>
 
+      #total{
+        color:grey;
+      }
       .block{
         background-color: blue;
         color:white;
@@ -144,14 +147,20 @@ function init(){
 */
 function drawGraph(){
     var handle = document.getElementById('graph');
-
+    var total=0;
     for(var i =0;i<avg_array.length;i++){
       var date = getDateFormat(0-i);
       var width=avg_array[i]/8;
       var number =avg_array[i];
+      total+=parseInt(number);
       handle.innerHTML+=date+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
 
     }
+
+    var metabolism=2000; // calorie burn perday;
+    var total_metabolism = metabolism*avg_array.length;
+    var burned = total_metabolism-total;
+    document.getElementById('total').innerHTML=`   ${burned} calories burned ${(burned/3000)} pounds lost?  `;
 
 }
 
@@ -780,7 +789,7 @@ function convert(){
            <div id='average7'>history</div>
            <div id='average7today'>average</div> 
            <div >---</div>
-           <div id='array'>array</div>
+           <div id='total'>total</div>
  
 <div id='debug'></div>  
 
