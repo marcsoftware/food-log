@@ -120,7 +120,7 @@
        var totalCal=0;
        var totalMinutes=0;
 
-      for(var i = 0;i<30;i++){
+      for(var i = 30;i>=0;i--){
           var list = getMinutes(i);
           totalCal+=parseInt(list[2]);
           totalMinutes+=parseInt(list[1]);
@@ -128,8 +128,9 @@
           
       }
 
-      
-      document.getElementById('burned').innerHTML=totalMinutes+'minutes ';
+      var totalHours = Math.floor(totalMinutes/60);
+      var remainder = totalMinutes%60;
+      document.getElementById('burned').innerHTML=totalHours+'h '+remainder+'m ';
       document.getElementById('burned').innerHTML+=totalCal+'calories ';
       document.getElementById('burned').innerHTML+=Math.round(totalCal/3000).toFixed(2)+'pounds ';
     }
@@ -151,10 +152,10 @@
         }
         var fieldName = 'caloriesOut';
         var totalCalories=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName]);
-
+        totalCalories=totalCalories|| 0;
          fieldName = 'minutes';
         var totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName]);
-
+totalMinutes=totalMinutes|| 0;
         
         return [date,totalMinutes,totalCalories]
      
