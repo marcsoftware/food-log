@@ -8,6 +8,20 @@
     
     <style>
 
+   .block{
+        background-color: lightblue;
+        color:black;
+        display: inline-block;
+        margin-bottom : 1px;
+        margin-right: 1px;
+        margin-top:0px;
+        white-space: nowrap;
+      }
+
+      #burned{
+        color:red;
+      }
+
       #total{
         color:grey;
       }
@@ -117,7 +131,71 @@ function init(){
     getWeekCalories();
     drawGraph();
 
+    document.getElementById('json').value=(localStorage.getItem("raw"));
+    parse();
+
 }
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function getMinutes(id){
+        var json=document.getElementById('json').value;
+        json= JSON.parse(json);
+
+        try{
+          var date = json['activities-heart'][id]['dateTime'];
+          var fatburnZone = json['activities-heart'][id]['value']['heartRateZones'][1];
+          var cardioZone = json['activities-heart'][id]['value']['heartRateZones'][2];
+          var peakZone = json['activities-heart'][id]['value']['heartRateZones'][3];
+        }catch(e){
+            return [0,0,0];
+        }
+        var fieldName = 'caloriesOut';
+        var totalCalories=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName]);
+        totalCalories=totalCalories|| 0;
+         fieldName = 'minutes';
+        var totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName]);
+totalMinutes=totalMinutes|| 0;
+        
+        return [date,totalMinutes,totalCalories]
+     
+    }
+
+     //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function output(x){
+        document.getElementById('total2').innerHTML+=x;
+    }
+
+
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function parse(){
+      //setCookie('raw',document.getElementById('json').value);
+        localStorage.setItem("raw", document.getElementById('json').value);
+        document.getElementById('total2').innerHTML='';
+       var totalCal=0;
+       var totalMinutes=0;
+
+      for(var i = 0;i<30;i++){
+          var list = getMinutes(i);
+          totalCal+=parseInt(list[2]);
+          totalMinutes+=parseInt(list[1]);
+          output(`${list[0]} <p class='block' style='width:${list[2]/2}px'>${list[2]} | ${list[1]} ( ${Math.round(list[2]/list[1])})</p><br/>`);
+          
+      }
+
+      var totalHours = Math.floor(totalMinutes/60);
+      var remainder = totalMinutes%60;
+      document.getElementById('burned').innerHTML=totalHours+'h '+remainder+'m ';
+      document.getElementById('burned').innerHTML+=totalCal+'calories ';
+      document.getElementById('burned').innerHTML+=Math.round(totalCal/3000).toFixed(2)+'pounds ';
+    }
+
 
 /**
 //---------------------------------------------------------------------
@@ -455,5 +533,12 @@ today = hh + ':' + mm + ':' + ss;
 
 <div id='graph'></div>
 
+<textarea id='json'>
+  
+
+</textarea>
+<div id='total2'>total</div>
+ <p id='burned' >EMPTY</p>
+ <button onclick="parse()">parse</button> 
 </body>
 </html>
