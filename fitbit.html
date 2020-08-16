@@ -21,6 +21,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------
 
     function getAuthCode() {
+      console.log('getAuthCode(){} called');
         var code=document.getElementById('code').value;
       var xhttp = new XMLHttpRequest();
       
@@ -761,7 +762,7 @@ function getSum(some_array){
     }
   ]
 }
-  
+
 </textarea>
  <button onclick="parse()">get heart</button> 
  <p id='burned' >EMPTY</p>
