@@ -117,16 +117,21 @@
     //--------------------------------------------------------------------------------------------------------------------------------
     function parse(){
       
-       
+       var totalCal=0;
+       var totalMinutes=0;
+
       for(var i = 0;i<30;i++){
           var list = getMinutes(i);
+          totalCal+=parseInt(list[2]);
+          totalMinutes+=parseInt(list[1]);
           output(`${list[0]} <p class='block' style='width:${list[2]/2}px'>${list[2]} | ${list[1]} ( ${Math.round(list[2]/list[1])})</p><br/>`);
           
       }
 
       
-      
-
+      document.getElementById('burned').innerHTML=totalMinutes+'minutes ';
+      document.getElementById('burned').innerHTML+=totalCal+'calories ';
+      document.getElementById('burned').innerHTML+=Math.round(totalCal/3000).toFixed(2)+'pounds ';
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------
@@ -136,11 +141,14 @@
         var json=document.getElementById('json').value;
         json= JSON.parse(json);
 
-        var date = json['activities-heart'][id]['dateTime'];
-        var fatburnZone = json['activities-heart'][id]['value']['heartRateZones'][1];
-        var cardioZone = json['activities-heart'][id]['value']['heartRateZones'][2];
-        var peakZone = json['activities-heart'][id]['value']['heartRateZones'][3];
-        
+        try{
+          var date = json['activities-heart'][id]['dateTime'];
+          var fatburnZone = json['activities-heart'][id]['value']['heartRateZones'][1];
+          var cardioZone = json['activities-heart'][id]['value']['heartRateZones'][2];
+          var peakZone = json['activities-heart'][id]['value']['heartRateZones'][3];
+        }catch(e){
+            return [0,0,0];
+        }
         var fieldName = 'caloriesOut';
         var totalCalories=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName]);
 
@@ -715,7 +723,7 @@ function getSum(some_array){
   ]
 }</textarea>
  <button onclick="parse()">get heart</button> 
- <p id='totalminutes' >EMPTY</p>
+ <p id='burned' >EMPTY</p>
  <p id='total' ></p>
 </body>
 </html>
