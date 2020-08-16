@@ -25,7 +25,7 @@
       #total{
         color:grey;
       }
-      .block{
+      .block2{
         background-color: blue;
         color:white;
         display: inline-block;
@@ -134,11 +134,25 @@ function init(){
     document.getElementById('json').value=(localStorage.getItem("raw"));
     parse();
 
+    combineData();
+
 }
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function combineData(){
+    
+
+}
+
 
     //--------------------------------------------------------------------------------------------------------------------------------
     //
     //--------------------------------------------------------------------------------------------------------------------------------
+    var fitbit_master = [];
     function getMinutes(id){
         var json=document.getElementById('json').value;
         json= JSON.parse(json);
@@ -157,7 +171,7 @@ function init(){
          fieldName = 'minutes';
         var totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName]);
 totalMinutes=totalMinutes|| 0;
-        
+        fitbit_master.push(date,totalMinutes,totalCalories);
         return [date,totalMinutes,totalCalories]
      
     }
@@ -202,6 +216,7 @@ totalMinutes=totalMinutes|| 0;
 //
 //---------------------------------------------------------------------
 */
+var foodlog_master= []
 function drawGraph(){
     var handle = document.getElementById('graph');
     var total=0;
@@ -212,6 +227,7 @@ function drawGraph(){
       var number =avg_array[i];
       total+=parseInt(number);
       handle.innerHTML+=date_format+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
+      foodlog_master.push(date_format,number);
 
     }
 
