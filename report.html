@@ -129,10 +129,11 @@ function drawGraph(){
     var total=0;
     for(var i =0;i<avg_array.length;i++){
       var date = getDateFormat(0-i);
+      var date_format = getDateFormat2(0-i);
       var width=avg_array[i]/8;
       var number =avg_array[i];
       total+=parseInt(number);
-      handle.innerHTML+=date+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
+      handle.innerHTML+=date_format+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
 
     }
 
@@ -241,6 +242,25 @@ function getDateFormat(offset){
     var yyyy = target_date.getFullYear();
 
     target_date = mm + '-' + dd + '-' + yyyy;
+    return target_date;
+}
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function getDateFormat2(offset){
+  var target_date = new Date();
+
+    target_date.setDate(target_date.getDate()+offset);
+
+    var dd = String(target_date.getDate()).padStart(2, '0');
+    var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = target_date.getFullYear();
+
+    target_date =  yyyy+ '-' +mm + '-' + dd ;
     return target_date;
 }
 
@@ -367,27 +387,7 @@ function getSum(obj){
 
 
 
-/**
-//---------------------------------------------------------------------
-//
-//---------------------------------------------------------------------
-*/
-function getDate(){
 
- 
-
-    var today = new Date();
-
-    today.setDate(today.getDate()+date_offset);
-
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
-
-today = mm + '-' + dd + '-' + yyyy;
-//document.getElementById('date').innerHTML=today;
-    return today;
-}
 
 /**
 //---------------------------------------------------------------------
