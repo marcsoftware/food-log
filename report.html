@@ -112,7 +112,7 @@ window.onload=init;
 //---------------------------------------------------------------------
 */
 function init(){
-    getAllFoodOnDate();
+    //getAllFoodOnDate();
     //getAllNames();
     getWeekCalories();
     drawGraph();
@@ -340,32 +340,6 @@ function getAllFood() {
 }
 
 
-
-/**
-//---------------------------------------------------------------------
-//  @GetMapping(path = "/date/{date}")
-//---------------------------------------------------------------------
-*/
- // get all food items from database   
-function getAllFoodOnDate() {
-
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
-        document.getElementById('log').innerHTML='';
-        var result=this.responseText;
-        var obj = JSON.parse(result); 
-        printJSON(obj);
-      
-      
-    }
-  };
-  xhttp.open("GET", database_url+"/date/"+getDate(), true);
-  xhttp.send();
-}
-
-
 // TODO move this variables ?
 var day_totals=[];
 window.global_totals=[];
@@ -389,110 +363,9 @@ function getSum(obj){
 }
 
 
-/**
-//---------------------------------------------------------------------
-// get names of all food to opulate the dropdown menu   @GetMapping(path = "/list")
-//---------------------------------------------------------------------
-*/
- // get all food items from database   
-function getAllNames() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
-        
-        var result=this.responseText.replace(/[\[\]\"]/g,'').split(',');
-        
-        result=result.map(function (element) {
-          return `<option value='${element}'>`;
-        });
-          
-        document.getElementById('listAll').innerHTML=result.join('');
-        
-      
-      
-    }
-  };
-  xhttp.open("GET", database_url+"/list", true);
-  xhttp.send();
-}
-
-/**
-//---------------------------------------------------------------------
-//
-//---------------------------------------------------------------------
-*/
-// save form to database
-function save(){
-        
-        getFormData();
-        convert();
-        doAlgebra();
-
-        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-        var theUrl = database_url+"/food";
-        xmlhttp.open("POST", theUrl);
-        xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-       
-
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                 document.getElementById('log').innerHTML='';
-                 getAllFoodOnDate();
-                 clearFormData();
-                 get6dayaverage();
-
-            }
-        };
-
- //TODO check undefined
-      /*
-         {
-
-                          {
-
-                            "name": "coke",
-                            "consumed_calories": ,
-                            "consumed_label": "b",
-                            "consumed_unit": 1,
-                            "ratio_calories": ,
-                            "ratio_label": "null",
-                            "ratio_unit": 0,
-                            "date": "07-09-2020",
-                            "time": "04:09:02",
-                            "userName":"marc"
-                        }
-                        }
-                            */
 
 
-        if(ratio_cal == ''){
-            ratio_cal='0';
-        }  
 
-        if(total_cal == ''){
-            total_cal='0';
-        }  
-
-        var body = `
-                        {
-
-                            "name": "${name}",
-                            "consumed_calories": ${total_cal},
-                            "consumed_label": "${total_amount_label}",
-                            "consumed_unit": ${total_amount_unit},
-                            "ratio_calories": ${ratio_cal},
-                            "ratio_label": "${ratio_amount_label}",
-                            "ratio_unit": ${ratio_amount_unit},
-                            "date": "${getDate()}",
-                            "time": "${getTime()}",
-                            "userName":"marc"
-                        }`;
-
-        xmlhttp.send(body);
-        
-}
 
 /**
 //---------------------------------------------------------------------
@@ -512,7 +385,7 @@ var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
 
 today = mm + '-' + dd + '-' + yyyy;
-document.getElementById('date').innerHTML=today;
+//document.getElementById('date').innerHTML=today;
     return today;
 }
 
@@ -558,159 +431,13 @@ today = hh + ':' + mm + ':' + ss;
 
 
 
-/**
-//---------------------------------------------------------------------
-//
-//---------------------------------------------------------------------
-*/
-var name, total_amount,total_cal,ratio_amount,ratio_cal;
-var total_amount_unit, total_amount_label;
-var ratio_amount_unit, ratio_amount_label;
-// get datafrom form
-function getFormData(){
-     name= document.getElementById('name').value;
-     total_amount= removeLabel(document.getElementById('total_amount').value);
-     total_amount_label=total_amount[1];
-     total_amount_unit=total_amount[0];
-     total_cal= document.getElementById('total_cal').value;
-    
-     ratio_amount= removeLabel(document.getElementById('ratio_amount').value);
-     ratio_amount_label=ratio_amount[1];
-     ratio_amount_unit=ratio_amount[0];
-     ratio_cal= document.getElementById('ratio_cal').value;
 
-    
-}
-
-/**
-//---------------------------------------------------------------------
-//
-//---------------------------------------------------------------------
-*/
-// clear datafrom form
-function clearFormData(){
-    document.getElementById('name').value='';
-    document.getElementById('total_amount').value='';
-    document.getElementById('total_cal').value='';
-
-    document.getElementById('ratio_amount').value='';
-    document.getElementById('ratio_cal').value='';
-
-    
-}
-
-
-/**
-//---------------------------------------------------------------------
-// convert between g and oz
-//---------------------------------------------------------------------
-*/
-function convert(){
-    if(total_amount_label === 'oz' && ratio_amount_label==='g'){
-        ratio_amount_label='oz';
-        ratio_amount_unit *= 0.035274;
-        
-    }
-}
-
-/**
-//---------------------------------------------------------------------
-//
-//---------------------------------------------------------------------
-*/
-        //arg: item is an object that represents a food
-        // if solves all varibles that can be solved for.   
-        // total_cal = cal_per_serv / amount_per_serv * total_amount
-        // pre-condition: should call doUnitConversion(item) before this one to make sure units match
-        function doAlgebra(){
-            var index;
-             if(stats.indexOf('g')>=0 && ratio_amount_label ==='null' && total_amount_label==='oz'){
-                    index=stats.indexOf('g'); //TODO refactor this
-                    
-                   ratio_amount_label='g';
-                    ratio_amount_label=stats[index];
-                  ratio_amount_unit=stats[index+1];
-                  ratio_cal=stats[index+2];
-                   
-                  convert();
-
-
-                }
-
-           if(total_amount_label !== 'null' && total_cal === '' && ratio_amount_label === 'null' && ratio_cal ===''){
-                 index = (stats.indexOf(total_amount_label)); 
-               
-                if (index >=0){
-                  ratio_amount_label=stats[index];
-                  ratio_amount_unit=stats[index+1];
-                  ratio_cal=stats[index+2];
-                   
-                  convert();
-                }
-
-            }
-
-
-
-            if(ratio_amount_label===total_amount_label && total_amount_label !== 'null'){
-
-                if(total_cal === '' && ratio_cal !== ''){
-                    total_cal=(ratio_cal/ratio_amount_unit)*total_amount_unit;
-
-                }
-            }else if(total_amount_label !== 'null' && total_cal !== '' && ratio_amount_label==='null'){
-                ratio_amount_label=total_amount_label;
-                ratio_amount_unit=total_amount_unit;
-                ratio_cal=total_cal;
-            }
-
-           
-
-        }
-
-
-
-        /**
-        //---------------------------------------------------------------------
-        //
-        //---------------------------------------------------------------------
-        */
-        function removeLabel(ref){
-             console.log( ref);
-           if((ref) == ""){
-                return [0,'null'];
-                
-            }
-              var x = ref.slice();
-                var label = '';
-                var number = '';
-
-                try{
-                    label = x.match(/[a-zA-Z]+/g).join('').trim();
-                                    
-                    number = x.match(/[\d\.]+/g);
-
-                }catch(e){
-                    console.log('ERROR in removeLabel(): the arg x was probably undefined');
-                    label='';
-                    number=0;
-                }
-                
-                number = parseFloat(number);
-
-                if(label === null){
-                        label=' ';
-                    }
-                      
-
-                return [number,label];
-        }
 </script>
 <title>REPORT</title>
 </head>
 <body>
 
-<h2>food log</h2>
+<h2>FOOD REPORT</h2>
 
 
 
@@ -725,16 +452,7 @@ function convert(){
 
     </div>
 
-<div id='rightside'>
-  <p id='date_container'>
-    
-    <span id='date' onclick='changeDate(0)'></span>
-    
-  </p>
- 
-    <table id="log"></table>
-</div>
-<br/>
+
 <div id='graph'></div>
 
 </body>
