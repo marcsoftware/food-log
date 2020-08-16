@@ -63,7 +63,7 @@
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var object =  JSON.parse(this.responseText);
-            document.getElementById("results").innerHTML = this.responseText;
+            document.getElementById("results").value = this.responseText;
           
         }else{
         	document.getElementById("error").innerHTML = this.responseText;
@@ -191,6 +191,7 @@ function getSum(some_array){
 </script>
 
 <body>
+
 <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22BVZC&redirect_uri=http://localhost&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">url for code</a>
 
 <input type="text" id='code' /><br/>
@@ -198,8 +199,8 @@ function getSum(some_array){
  <button onclick="getAuthCode()">get auth code</button> <br/>
  <textarea id='authcode'>  EMPTY</textarea><br/>
 
- <button onclick="getHeartToday('none')">get heart</button> 
- <p id='results' >EMPTY</p>
+ <button onclick="getHeartToday('none')">get heart</button> <br/>
+ <textarea id='results' >EMPTY</textarea>
  <p id='error' >error</p>
 <textarea id='json'>
   
@@ -763,7 +764,7 @@ function getSum(some_array){
 }
 
 </textarea>
- <button onclick="parse()">get heart</button> 
+ <button onclick="parse()">parse</button> 
  <p id='burned' >EMPTY</p>
  <p id='total' ></p>
 </body>
