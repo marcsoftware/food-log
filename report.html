@@ -146,13 +146,26 @@ function init(){
 //---------------------------------------------------------------------
 */
 function combineData(){
+  var table_rows='<table>';
+  
   var hand= document.getElementById('master');
     for(var i in foodlog_master){
+
+      table_rows+='<tr>';
+      //table_rows+=foodlog_master[i]['calories'];
+      if(fitbit_master[i] === undefined){
+
+        fitbit_master[i] ={"minutes":0 , "calories":0} ;
+      }
+      var fitbit_value= fitbit_master[i]
+      table_rows+=`<th>${i} </th> <th>  ${foodlog_master[i]['calories']}  </th><th>  ${fitbit_master[i]['calories']} </th><th>  ${foodlog_master[i]['calories']-fitbit_master[i]['calories']} </th>`;
+      table_rows+='</tr>';
       
-      hand.innerHTML+= `A: ${i} ${foodlog_master[i]} <br/>`;
-      hand.innerHTML+= `B: ${i}  ${fitbit_master[i]} <br/>`;
+      
 
     }
+
+    hand.innerHTML=table_rows+'<table>' ;
 
 }
 
@@ -180,7 +193,7 @@ function combineData(){
         var totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName]);
 totalMinutes=totalMinutes|| 0;
 
-        var record = ` {"minutes":${totalMinutes} , "calories":${totalCalories}}  `;
+        var record =  {"minutes":totalMinutes , "calories":totalCalories}  ;
         
         fitbit_master[date]=record;
         
@@ -239,7 +252,7 @@ function drawGraph(){
       var number =avg_array[i];
       total+=parseInt(number);
       handle.innerHTML+=date_format+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
-      foodlog_master[date_format]=` { "calories":${number}}  `;
+      foodlog_master[date_format]= { "calories":number } ;
 
     }
 
