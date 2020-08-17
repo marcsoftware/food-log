@@ -18,8 +18,14 @@
         margin-right: 1px;
         margin-top:0px;
         white-space: nowrap;
+        float:left;
+
       }
 
+      .right{
+        background-color: red;
+        float:right;
+      }
     
       #burned{
         color:red;
@@ -184,14 +190,17 @@ function combineData(){
       var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]['calories']);
       var fitbit_burn=parseInt(fitbit_master[i]['calories']);
       var total_burn= (food_burn+0+fitbit_burn).toFixed(0);
-
+      var more='';
+      if(total_burn < 0){
+          more=' right ';
+      }
       var x= food_burn;
       var y=fitbit_burn;
       var z= total_burn;
       row+=`<th class='date'>${i} </th>
                    <th> <div class="block" style="width:${(x)/shrink*100}%" >  ${x}</div>  </th>
                    <th> <div class="block" style="width:${(y)/shrink*100}%" >   ${y} </div> </th>
-                    <th> <div class="block" style="width:${(z)/shrink*100}%" >   ${z} </di1/v> </th>`;
+                    <th> <div class="block ${more}" style="width:${(z)/shrink*100}%" >   ${z} </di1/v> </th>`;
                    
      row+='</tr>';
      table_rows.push(row);
