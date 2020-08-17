@@ -20,6 +20,7 @@
         white-space: nowrap;
       }
 
+    
       #burned{
         color:red;
       }
@@ -97,21 +98,24 @@
         }
 
         table {
+          padding: 0px;
           color:black;
   border-collapse: collapse;
   width: 100%;
 }
 
 th, td {
-  padding: 8px;
+  padding: 0px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 
 }
 
 th{
+  padding: 0px;
    border-style: solid;
   border-width: thin;
+  width: 25%;
 
 }
 
@@ -119,7 +123,7 @@ th{
    border-style: none;
   
   
-  width: 30px;
+  width: 1%;
 }
 
 tr:hover {background-color:#f5f5f5;}
@@ -160,7 +164,7 @@ function init(){
 //---------------------------------------------------------------------
 */
 
-var MAX_CAL=3000;
+var VIEW_WIDTH=3000;
 var BASE_CALORIES=2000; // calories burned per day by user
 function combineData(){
   var table_rows='<table>';
@@ -175,10 +179,16 @@ function combineData(){
         fitbit_master[i] ={"minutes":0 , "calories":0} ;
       }
 
-      var food_burn= BASE_CALORIES- foodlog_master[i]['calories'];
+
+      var shrink=3;
+      var food_burn= (BASE_CALORIES- foodlog_master[i]['calories']);
       var fitbit_burn= fitbit_master[i]['calories'];
       var total_burn= food_burn+fitbit_burn;
-      table_rows+=`<th class='date'>${i} </th> <th>  ${food_burn}  </th><th>  ${fitbit_burn} </th><th>  ${total_burn} </th>`;
+      table_rows+=`<th class='date'>${i} </th>
+                   <th> <div class="block" style="width:${food_burn/shrink}px" >  ${food_burn}</div>  </th>
+                   <th> <div class="block" style="width:${fitbit_burn/shrink}px" >   ${fitbit_burn} </div> </th>
+                    <th> <div class="block" style="width:${fitbit_burn/shrink}px" >   ${fitbit_burn} </div> </th>`;
+                   
       table_rows+='</tr>';
       
       
