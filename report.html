@@ -181,9 +181,9 @@ function combineData(){
 
 
       var shrink=3000;
-      var food_burn= (BASE_CALORIES- foodlog_master[i]['calories']).toFixed(0);
-      var fitbit_burn= (fitbit_master[i]['calories']).toFixed(0);
-      var total_burn= (food_burn+fitbit_burn);
+      var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]['calories']);
+      var fitbit_burn=parseInt(fitbit_master[i]['calories']);
+      var total_burn= (food_burn+0+fitbit_burn).toFixed(0);
 
       var x= food_burn;
       var y=fitbit_burn;
