@@ -7,7 +7,9 @@
 <head>
     
     <style>
-
+      #master{
+        color:green;
+      }
    .block{
         background-color: lightblue;
         color:black;
@@ -144,7 +146,13 @@ function init(){
 //---------------------------------------------------------------------
 */
 function combineData(){
-    
+  var hand= document.getElementById('master');
+    for(var i in foodlog_master){
+      
+      hand.innerHTML+= `A: ${i} ${foodlog_master[i]} <br/>`;
+      hand.innerHTML+= `B: ${i}  ${fitbit_master[i]} <br/>`;
+
+    }
 
 }
 
@@ -152,7 +160,7 @@ function combineData(){
     //--------------------------------------------------------------------------------------------------------------------------------
     //
     //--------------------------------------------------------------------------------------------------------------------------------
-    var fitbit_master = [];
+    var fitbit_master = {};
     function getMinutes(id){
         var json=document.getElementById('json').value;
         json= JSON.parse(json);
@@ -171,7 +179,11 @@ function combineData(){
          fieldName = 'minutes';
         var totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName]);
 totalMinutes=totalMinutes|| 0;
-        fitbit_master.push(date,totalMinutes,totalCalories);
+
+        var record = ` {"minutes":${totalMinutes} , "calories":${totalCalories}}  `;
+        
+        fitbit_master[date]=record;
+        
         return [date,totalMinutes,totalCalories]
      
     }
@@ -216,7 +228,7 @@ totalMinutes=totalMinutes|| 0;
 //
 //---------------------------------------------------------------------
 */
-var foodlog_master= []
+var foodlog_master= {};
 function drawGraph(){
     var handle = document.getElementById('graph');
     var total=0;
@@ -227,7 +239,7 @@ function drawGraph(){
       var number =avg_array[i];
       total+=parseInt(number);
       handle.innerHTML+=date_format+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
-      foodlog_master.push(date_format,number);
+      foodlog_master[date_format]=` { "calories":${number}}  `;
 
     }
 
@@ -530,7 +542,8 @@ today = hh + ':' + mm + ':' + ss;
 <title>REPORT</title>
 </head>
 <body>
-
+<h2>MASTER</h2>
+<div id='master'></div>
 <h2>FOOD REPORT</h2>
 
 
@@ -548,7 +561,7 @@ today = hh + ':' + mm + ':' + ss;
 
 
 <div id='graph'></div>
-
+<h2>FITBIT REPORT</h2>
 <textarea id='json'>
   
 
