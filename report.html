@@ -167,12 +167,12 @@ function init(){
 var VIEW_WIDTH=3000;
 var BASE_CALORIES=2000; // calories burned per day by user
 function combineData(){
-  var table_rows='<table>';
+  var table_rows=[];
   
   var hand= document.getElementById('master');
     for(var i in foodlog_master){
-
-      table_rows+='<tr>';
+     
+      var row='<tr>';
       //table_rows+=foodlog_master[i]['calories'];
       if(fitbit_master[i] === undefined){
 
@@ -186,20 +186,21 @@ function combineData(){
       var total_burn= food_burn+fitbit_burn;
 
       var x= food_burn;
-      var y=fitbit_burn
+      var y=fitbit_burn;
       var z= total_burn;
-      table_rows+=`<th class='date'>${i} </th>
+      row+=`<th class='date'>${i} </th>
                    <th> <div class="block" style="width:${(x)/shrink*100}%" >  ${x}</div>  </th>
                    <th> <div class="block" style="width:${(y)/shrink*100}%" >   ${y} </div> </th>
                     <th> <div class="block" style="width:${(z)/shrink*100}%" >   ${z} </di1/v> </th>`;
                    
-     table_rows+='</tr>';
+     row+='</tr>';
+     table_rows.push(row);
      
       
 
     }
 
-    hand.innerHTML=table_rows+'<table>' ;
+    hand.innerHTML='<table>'+table_rows.join('')+'</table>' ;
 
 }
 
