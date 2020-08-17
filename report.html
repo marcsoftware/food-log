@@ -159,6 +159,9 @@ function init(){
 //
 //---------------------------------------------------------------------
 */
+
+var MAX_CAL=3000;
+var BASE_CALORIES=2000; // calories burned per day by user
 function combineData(){
   var table_rows='<table>';
   
@@ -171,8 +174,11 @@ function combineData(){
 
         fitbit_master[i] ={"minutes":0 , "calories":0} ;
       }
-      var fitbit_value= fitbit_master[i]
-      table_rows+=`<th class='date'>${i} </th> <th>  ${foodlog_master[i]['calories']}  </th><th>  ${fitbit_master[i]['calories']} </th><th>  ${foodlog_master[i]['calories']-fitbit_master[i]['calories']} </th>`;
+
+      var food_burn= BASE_CALORIES- foodlog_master[i]['calories'];
+      var fitbit_burn= fitbit_master[i]['calories'];
+      var total_burn= food_burn+fitbit_burn;
+      table_rows+=`<th class='date'>${i} </th> <th>  ${food_burn}  </th><th>  ${fitbit_burn} </th><th>  ${total_burn} </th>`;
       table_rows+='</tr>';
       
       
