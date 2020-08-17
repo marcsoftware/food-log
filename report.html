@@ -180,17 +180,17 @@ function combineData(){
       }
 
 
-      var shrink=3;
+      var shrink=3000;
       var food_burn= (BASE_CALORIES- foodlog_master[i]['calories']);
       var fitbit_burn= fitbit_master[i]['calories'];
       var total_burn= food_burn+fitbit_burn;
       table_rows+=`<th class='date'>${i} </th>
-                   <th> <div class="block" style="width:${food_burn/shrink}px" >  ${food_burn}</div>  </th>
-                   <th> <div class="block" style="width:${fitbit_burn/shrink}px" >   ${fitbit_burn} </div> </th>
-                    <th> <div class="block" style="width:${fitbit_burn/shrink}px" >   ${fitbit_burn} </div> </th>`;
+                   <th> <div class="block" style="width:${(food_burn)/shrink*100}%" >  ${food_burn}</div>  </th>
+                   <th> <div class="block" style="width:${(fitbit_burn)/shrink*100}%" >   ${fitbit_burn} </div> </th>
+                    <th> <div class="block" style="width:${(fitbit_burn)/shrink*100}%" >   ${fitbit_burn} </di1/v> </th>`;
                    
-      table_rows+='</tr>';
-      
+     table_rows+='</tr>';
+     
       
 
     }
