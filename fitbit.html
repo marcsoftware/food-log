@@ -158,16 +158,18 @@ function getDateFormat(offset){
        var totalCal=0;
        var totalMinutes=0;
        var new_json= JSON.parse(document.getElementById('json').value)['activities-heart'];
-
+      var container=[];
       for(let i in new_json){
           
           var list = getMinutes(i);
           totalCal+=parseInt(list[2]);
           totalMinutes+=parseInt(list[1]);
-          output(`${list[0]} <p class='block' style='width:${list[2]/2}px'>${list[2]} | ${list[1]} ( ${Math.round(list[2]/list[1])})</p><br/>`);
+          container.push(`${list[0]} <p class='block' style='width:${list[2]/2}px'>${list[2]} | ${list[1]} ( ${Math.round(list[2]/list[1])})</p><br/>`);
+          
           
       }
 
+      output(container.reverse().join(''));
       var totalHours = Math.floor(totalMinutes/60);
       var remainder = totalMinutes%60;
       document.getElementById('burned').innerHTML=totalHours+'h '+remainder+'m ';
