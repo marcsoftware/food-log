@@ -156,8 +156,10 @@ function getDateFormat(offset){
         document.getElementById('total').innerHTML='';
        var totalCal=0;
        var totalMinutes=0;
+       var new_json= JSON.parse(document.getElementById('json').value)['activities-heart'];
 
-      for(var i = 0;i<30;i++){
+      for(let i in new_json){
+          
           var list = getMinutes(i);
           totalCal+=parseInt(list[2]);
           totalMinutes+=parseInt(list[1]);
