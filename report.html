@@ -665,14 +665,31 @@ today = hh + ':' + mm + ':' + ss;
 }
 
 
+function toggle(handle){
+  var index=(handle.value);
+  var options = ['1950-01-01','2020-08-01'];
+  DATE_FILTER=options[index];
+  combineData();
 
+}
 
 </script>
 <title>REPORT</title>
 
 </head>
 <body>
-<h2>MASTER</h2>
+<h2>MASTER </h2>
+
+<form >
+  
+  <input type="radio" id="yes" name="filter" value="1" onchange='toggle(this)'>
+  <label for="male ">Yes</label>
+  <input type="radio" id="no" name="filter" value="0" onchange='toggle(this)'>
+  <label for="female">No</label>
+
+
+
+</form>
 <div id='master_total'></div>
 <div id='master'></div>
 
