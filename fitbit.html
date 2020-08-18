@@ -21,7 +21,7 @@ window.onload=init;
 //
 //--------------------------------------------------------------------------------------------------------------------------------
 function init(){
-  
+  document.getElementById('authcode').value=(localStorage.getItem("authcode"));
   document.getElementById('json').value=(localStorage.getItem("raw"));
   parse();
 }
@@ -43,6 +43,7 @@ function init(){
             document.cookie = "token="+token+"; expires=Thu, 18 Dec 5013 12:00:00 UTC" ; 
             setCookie("token",token);
           document.getElementById("authcode").value = token;
+           localStorage.setItem("authcode", token);
           getHeartToday(token);
         }
       };
