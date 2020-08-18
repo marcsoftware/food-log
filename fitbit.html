@@ -147,6 +147,7 @@ function getDateFormat(offset){
     //--------------------------------------------------------------------------------------------------------------------------------
     //
     //--------------------------------------------------------------------------------------------------------------------------------
+    var ONE_POUND_FAT=3500;
     function parse(){
       //setCookie('raw',document.getElementById('json').value);
         localStorage.setItem("raw", document.getElementById('json').value);
@@ -166,7 +167,7 @@ function getDateFormat(offset){
       var remainder = totalMinutes%60;
       document.getElementById('burned').innerHTML=totalHours+'h '+remainder+'m ';
       document.getElementById('burned').innerHTML+=totalCal+'calories ';
-      document.getElementById('burned').innerHTML+=Math.round(totalCal/3000).toFixed(2)+'pounds ';
+      document.getElementById('burned').innerHTML+=Math.round(totalCal/ONE_POUND_FAT).toFixed(2)+'pounds ';
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------
