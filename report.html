@@ -169,6 +169,15 @@ function init(){
 //--------------------------------------------------------------------------------------------------------------------------------
 //
 //--------------------------------------------------------------------------------------------------------------------------------
+function test(){
+    var authcode= localStorage.getItem("authcode");
+    console.log(authcode);
+    getHeartToday(authcode);
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
     function getHeartToday(token){
 
         if(token==='none'){
@@ -176,7 +185,7 @@ function init(){
         }
 
 
-     // var code=document.getElementById('code').value;
+      
       var xhttp = new XMLHttpRequest();
       
 
@@ -184,12 +193,12 @@ function init(){
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var object =  JSON.parse(this.responseText);
-            document.getElementById("results").value = this.responseText;
+            
             document.getElementById("json").value = this.responseText;
             parse();
           
         }else{
-          document.getElementById("error").innerHTML = this.responseText;
+         console.log( this.responseText);
         }
       };
 
@@ -663,11 +672,14 @@ today = hh + ':' + mm + ':' + ss;
 <div id='master'></div>
 
 <h2>FITBIT REPORT</h2>
+<p id='results' >EMPTY</p>
+<p id='error' >EMPTY</p>
 <textarea id='json'>
   
 
 </textarea>
 <button onclick="parse()">parse</button> 
+<button onclick="test()">test</button> 
 <p id='burned' >EMPTY</p>
 <div id='total2'>total</div>
  
@@ -693,3 +705,4 @@ today = hh + ':' + mm + ':' + ss;
 
 </body>
 </html>
+
