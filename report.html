@@ -267,7 +267,7 @@ function combineData(){
                    
      row+='</tr>';
      table_rows.push(row);
-     
+     drawRunningTally(i,total_burn);
       
 
     }
@@ -277,6 +277,16 @@ function combineData(){
 
 }
 
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    var runningTally=0;
+    function drawRunningTally(date,value){
+      runningTally+=value;
+      var x =`${date}<div class="block ${runningTally}" style="width:${runningTally}px" >   ${runningTally} </di1/v> </th>`
+        document.getElementById('runningTally').innerHTML+=x;
+    }
 
     //--------------------------------------------------------------------------------------------------------------------------------
     //
@@ -669,10 +679,15 @@ today = hh + ':' + mm + ':' + ss;
 
 
 function toggle(handle){
+  runningTally=0;
+  document.getElementById('runningTally').innerHTML='';
   var index=(handle.value);
   var options = ['1950-01-01','2020-08-01'];
   DATE_FILTER=options[index];
   combineData();
+
+  
+
 
 }
 
@@ -696,6 +711,9 @@ function toggle(handle){
 
 
 </form>
+
+<h2>RUNNING TALLY</h2>
+<div id='runningTally'></div>
 
 <h2>FITBIT REPORT</h2>
 <p id='results' >EMPTY</p>
