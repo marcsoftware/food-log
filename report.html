@@ -263,7 +263,7 @@ function combineData(){
       row+=`<th class='date'>${i} </th>
                    <th> <div class="block ${x_css}" style="width:${Math.abs((x)/shrink*100)}%" >  ${x}</div>  </th>
                    <th> <div class="block ${y_css}" style="width:${Math.abs((y)/shrink*100)}%" >   ${y} </div> </th>
-                    <th> <div class="block ${z_css}" style="width:${Math.abs((z)/shrink*100)}%" >   ${z} </di1/v> </th>`;
+                    <th> <div class="block ${z_css}" style="width:${Math.abs((z)/shrink*100)}%" >   ${z} </div> </th>`;
                    
      row+='</tr>';
      table_rows.push(row);
@@ -284,7 +284,7 @@ function combineData(){
     var runningTally=0;
     function drawRunningTally(date,value){
       runningTally+=value;
-      var x =`${date}<div class="block ${runningTally}" style="width:${runningTally}px" >   ${runningTally} </di1/v> </th>`
+      var x =`${date}<div class="block " style="width:${runningTally/40}px" >   ${runningTally} | ${(runningTally/ONE_POUND_FAT).toFixed(1)} </div><br> `
         document.getElementById('runningTally').innerHTML+=x;
     }
 
