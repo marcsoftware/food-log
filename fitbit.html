@@ -76,6 +76,7 @@ function init(){
         if (this.readyState == 4 && this.status == 200) {
             var object =  JSON.parse(this.responseText);
             document.getElementById("results").value = this.responseText;
+            document.getElementById("json").value = this.responseText;
           
         }else{
         	document.getElementById("error").innerHTML = this.responseText;
