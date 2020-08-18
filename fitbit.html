@@ -21,9 +21,11 @@ window.onload=init;
 //
 //--------------------------------------------------------------------------------------------------------------------------------
 function init(){
-  document.getElementById('authcode').value=(localStorage.getItem("authcode"));
+  var authcode= localStorage.getItem("authcode");
+  document.getElementById('authcode').value=authcode;
+  getHeartToday(authcode);
   document.getElementById('json').value=(localStorage.getItem("raw"));
-  parse();
+  //parse();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
