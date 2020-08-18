@@ -272,11 +272,22 @@ function combineData(){
 
     }
    
+    reverseElements();
     document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${(calorie_total/ONE_POUND_FAT).toFixed(2)}pounds`;
     hand.innerHTML='<table>'+table_rows.reverse().join('')+'</table>' ;
 
 }
+  
 
+    //--------------------------------------------------------------------------------------------------------------------------------
+    // drawy running tally in reverse order after rendering 
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function reverseElements(){
+          var list = document.getElementById('runningTally').innerHTML;
+          list = list.split('<br>');
+          list = list.reverse();
+          document.getElementById('runningTally').innerHTML=list.join('<br>');
+    }
 
     //--------------------------------------------------------------------------------------------------------------------------------
     //
