@@ -152,8 +152,7 @@ window.onload=init;
 //---------------------------------------------------------------------
 
 function init(){
-  var authcode= localStorage.getItem("authcode");
-  getHeartToday(authcode);
+  test();
     //getAllFoodOnDate();
     //getAllNames();
     getWeekCalories();
@@ -171,7 +170,7 @@ function init(){
 //--------------------------------------------------------------------------------------------------------------------------------
 function test(){
     var authcode= localStorage.getItem("authcode");
-    console.log(authcode);
+    
     getHeartToday(authcode);
 }
 
