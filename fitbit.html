@@ -29,6 +29,15 @@ function init(){
 }
 
 
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+function test(){
+    var authcode= localStorage.getItem("authcode");
+    console.log(authcode);
+    getHeartToday(authcode);
+}
+
 
 
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -67,10 +76,6 @@ function init(){
 //--------------------------------------------------------------------------------------------------------------------------------
     function getHeartToday(token){
 
-        if(token==='none'){
-            token=getCookie("token");
-        }
-
 
       
       var xhttp = new XMLHttpRequest();
@@ -80,7 +85,7 @@ function init(){
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var object =  JSON.parse(this.responseText);
-            
+            alert(this.responseText);
             document.getElementById("json").value = this.responseText;
             parse();
           
@@ -247,6 +252,7 @@ function getSum(some_array){
  <textarea id='authcode'>  EMPTY</textarea><br/>
 
  <button onclick="getHeartToday('none')">get heart</button> <br/>
+ <button onclick="test()">test</button> 
  <textarea id='results' >EMPTY</textarea>
  <p id='error' >error</p>
 <textarea id='json'>
