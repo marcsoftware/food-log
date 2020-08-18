@@ -220,7 +220,7 @@ function combineData(){
 
     }
    
-    document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${calorie_total/ONE_POUND_FAT}pounds`;
+    document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${(calorie_total/ONE_POUND_FAT).toFixed(2)}pounds`;
     hand.innerHTML='<table>'+table_rows.join('')+'</table>' ;
 
 }
@@ -272,6 +272,7 @@ totalMinutes=totalMinutes|| 0;
     var ONE_POUND_FAT=3500;
     function parse(){
       //setCookie('raw',document.getElementById('json').value);
+      document.getElementById('total2').innerHTML=''; // clear before adding
         localStorage.setItem("raw", document.getElementById('json').value);
         document.getElementById('total').innerHTML='';
        var totalCal=0;
