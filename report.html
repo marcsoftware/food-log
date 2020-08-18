@@ -354,8 +354,8 @@ function drawGraph(){
     var handle = document.getElementById('graph');
     var total=0;
     for(var i =0;i<avg_array.length;i++){
-      var date = getDateFormat(0-i);
-      var date_format = getDateFormat2(0-i);
+      var date = getDateFormat2(0-i);
+      var date_format = getDateFormat(0-i);
       var width=avg_array[i]/8;
       var number =avg_array[i];
       total+=parseInt(number);
@@ -411,7 +411,7 @@ function getCalorieArray(){
     for(var i =0;i<=30;i++){
         
     
-        var target_date = getDateFormat(0-i);
+        var target_date = getDateFormat2(0-i);
         getTotalSmart(target_date);
        
 
@@ -472,7 +472,8 @@ function getDateFormat(offset){
     var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
     var yyyy = target_date.getFullYear();
 
-    
+    //target_date = mm + '-' + dd+ '-' +yyyy  ;
+    //target_date = yyyy + '-' + mm + '-' + dd;
     target_date = yyyy + '-' + mm + '-' + dd;
     return target_date;
 }
@@ -491,7 +492,9 @@ function getDateFormat2(offset){
     var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
     var yyyy = target_date.getFullYear();
 
-    target_date =  yyyy+ '-' +mm + '-' + dd ;
+    target_date = mm + '-' + dd+ '-' +yyyy  ;
+    //target_date = yyyy + '-' + mm + '-' + dd;
+    //target_date =  yyyy+ '-' +mm + '-' + dd ;
     return target_date;
 }
 
