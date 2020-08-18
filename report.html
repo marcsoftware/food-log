@@ -169,7 +169,7 @@ function init(){
 //
 //---------------------------------------------------------------------
 */
-
+var ONE_POUND_FAT=3500; // 1 pound of fat is 3500 calories
 var VIEW_WIDTH=3000;
 var BASE_CALORIES=2000; // calories burned per day by user
 function combineData(){
@@ -220,7 +220,7 @@ function combineData(){
 
     }
    
-    document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${calorie_total/3000}pounds`;
+    document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${calorie_total/ONE_POUND_FAT}pounds`;
     hand.innerHTML='<table>'+table_rows.join('')+'</table>' ;
 
 }
@@ -288,7 +288,7 @@ totalMinutes=totalMinutes|| 0;
       var remainder = totalMinutes%60;
       document.getElementById('burned').innerHTML=totalHours+'h '+remainder+'m ';
       document.getElementById('burned').innerHTML+=totalCal+'calories ';
-      document.getElementById('burned').innerHTML+=Math.round(totalCal/3000).toFixed(2)+'pounds ';
+      document.getElementById('burned').innerHTML+=Math.round(totalCal/ONE_POUND_FAT).toFixed(2)+'pounds ';
     }
 
 
@@ -320,7 +320,7 @@ function drawGraph(){
     if(burned <=0){
         isPositive=0;
     }
-    document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/3000)} pounds ${text[isPositive]}?  `;
+    document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/ONE_POUND_FAT)} pounds ${text[isPositive]}?  `;
 
 }
 

@@ -145,6 +145,8 @@ function init(){
 //
 //---------------------------------------------------------------------
 */
+var ONE_POUND_FAT=3500; // 1 pound of fat is 3500 calories
+
 function drawGraph(){
     var handle = document.getElementById('graph');
     var total=0;
@@ -165,7 +167,7 @@ function drawGraph(){
     if(burned <=0){
         isPositive=0;
     }
-    document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/3000)} pounds ${text[isPositive]}?  `;
+    document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/ONE_POUND_FAT)} pounds ${text[isPositive]}?  `;
 
 }
 
