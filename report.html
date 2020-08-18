@@ -174,7 +174,7 @@ var VIEW_WIDTH=3000;
 var BASE_CALORIES=2000; // calories burned per day by user
 function combineData(){
   var table_rows=[];
-  
+  var calorie_total=0;
   var hand= document.getElementById('master');
     for(var i in foodlog_master){
      
@@ -189,7 +189,8 @@ function combineData(){
       var shrink=3000;
       var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]['calories']);
       var fitbit_burn=parseInt(fitbit_master[i]['calories']);
-      var total_burn= (food_burn+0+fitbit_burn).toFixed(0);
+      var total_burn=parseInt(food_burn+0+fitbit_burn);
+      calorie_total+=parseInt(total_burn);
       var x_css='';
       var y_css='';
       var z_css='';
@@ -218,7 +219,8 @@ function combineData(){
       
 
     }
-
+   
+    document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${calorie_total/3000}pounds`;
     hand.innerHTML='<table>'+table_rows.join('')+'</table>' ;
 
 }
@@ -607,9 +609,11 @@ today = hh + ':' + mm + ':' + ss;
 
 </script>
 <title>REPORT</title>
+
 </head>
 <body>
 <h2>MASTER</h2>
+<div id='master_total'></div>
 <div id='master'></div>
 <h2>FOOD REPORT</h2>
 
