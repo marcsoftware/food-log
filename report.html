@@ -418,7 +418,8 @@ function combineData(){
         var today_percent= (today/goal)*100;
         var total_percent = parseFloat(past_percent)+parseFloat(today_percent);
         document.getElementById('past').innerHTML=past+`<span> ${(past/ONE_POUND_FAT).toFixed(2)}lbs</span>`;;
-        document.getElementById('today').innerHTML=today+`<span> ${(today/ONE_POUND_FAT).toFixed(2)}lbs </span>${(total_percent).toFixed(2)}%`;
+        document.getElementById('today').innerHTML=today+`<span> ${(today/ONE_POUND_FAT).toFixed(2)}lbs </span>${(today_percent).toFixed(2)}%`;
+        document.getElementById('total_percent').innerHTML=`${(total_percent).toFixed(2)}%`;
         
         document.getElementById('past').style.width=`${past_percent}%`;
         document.getElementById('today').style.width=`${today_percent}%`;
@@ -842,6 +843,7 @@ function toggle(handle){
   </div>
 
   <div id='scale'></div>
+  <div id='total_percent'></div>
 <h2>MASTER </h2>
 
 
