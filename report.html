@@ -24,8 +24,8 @@
 
       .bar{
           display: inline-block;
+          color:white;
           
-          width: 10%;
       }
 
       #past{
@@ -307,10 +307,43 @@ function combineData(){
     //
     //--------------------------------------------------------------------------------------------------------------------------------
     var runningTally=0;
+    var today=0;
+    var past=0;
     function drawRunningTally(date,value){
+      past+=today;
+      today=value;
+
       runningTally+=value;
       var x =`${date}<div class="block " style="width:${runningTally/40}px" >   ${runningTally} | ${(runningTally/ONE_POUND_FAT).toFixed(1)} </div><br> `
-        document.getElementById('runningTally').innerHTML+=x;
+      document.getElementById('runningTally').innerHTML+=x;
+
+      drawProgressBar();
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function drawProgressBar(){
+var goal = (5*ONE_POUND_FAT);
+      if((today+past)>=goal){
+          past=goal;
+          today=0;
+
+          document.getElementById('past').style.backgroundColor='gold';
+
+        }
+
+        document.getElementById('today').innerHTML=today;
+        document.getElementById('past').innerHTML=past;
+
+        document.getElementById('past').style.width=past+'px';
+        document.getElementById('today').style.width=today+'px';
+        
+        
+          
+        
+
+
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------
