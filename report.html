@@ -336,9 +336,9 @@ var goal = (5*ONE_POUND_FAT);
         document.getElementById('today').innerHTML=today+` ${(today/ONE_POUND_FAT).toFixed(1)}`;
         document.getElementById('past').innerHTML=past+` ${(past/ONE_POUND_FAT).toFixed(1)}`;;
 
-        document.getElementById('past').style.width=past+'px';
-        document.getElementById('today').style.width=today+'px';
-        
+        var shrink=10;
+        document.getElementById('past').style.width=`${past/shrink}px`;
+        document.getElementById('today').style.width=`${today/shrink}px`;
         
           
         
