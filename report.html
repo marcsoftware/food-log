@@ -24,17 +24,18 @@
 
 
 #bar{
-  border-style: outset;
-  color:white;
-  padding: 3px;
+  border-style: groove;
+  
+  
   text-align: left;
 
 }
       .bar{
           display: inline-block;
           color:white;
-          
+          white-space: nowrap;
           text-align: center;
+          color:skyblue;
       }
 
       p{
@@ -50,17 +51,21 @@
         
         padding: 0px;
         margin: 0px;
-        font-size: 5px;
+        font-size: 75%;
+        padding-left: 10px;
+        font-family: "Lucida Console", Courier, monospace;
       }
 
       #past{
             border:none;
             background-color: DarkSlateBlue;
+            color:CornflowerBlue;
       }
 
       #today{
         border:none;
             background-color: CornflowerBlue;
+            color:DarkSlateBlue;
       }
 
 
@@ -374,8 +379,8 @@ function combineData(){
         var past_percent= (past/goal)*100;
         var today_percent= (today/goal)*100;
         
-        document.getElementById('past').innerHTML=past+` ${(past/ONE_POUND_FAT).toFixed(1)}`;;
-        document.getElementById('today').innerHTML=today+`<span> ${(today/ONE_POUND_FAT).toFixed(1)}</span>`;
+        document.getElementById('past').innerHTML=past+`<span> ${(past/ONE_POUND_FAT).toFixed(1)}lbs</span>`;;
+        document.getElementById('today').innerHTML=today+`<span> ${(today/ONE_POUND_FAT).toFixed(1)}lbs</span>`;
         
         document.getElementById('past').style.width=`${past_percent}%`;
         document.getElementById('today').style.width=`${today_percent}%`;
