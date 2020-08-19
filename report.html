@@ -324,8 +324,9 @@ function combineData(){
     //
     //--------------------------------------------------------------------------------------------------------------------------------
     function drawProgressBar(){
-var goal = (5*ONE_POUND_FAT);
-      if((today+past)>=goal){
+      
+      var goal = (5*ONE_POUND_FAT);
+     if((today+past)>=goal){
           past=goal;
           today=0;
 
@@ -333,12 +334,14 @@ var goal = (5*ONE_POUND_FAT);
 
         }
 
-        document.getElementById('today').innerHTML=today+` ${(today/ONE_POUND_FAT).toFixed(1)}`;
+        var past_percent= (past/goal)*100;
+        var today_percent= (today/goal)*100;
+        
         document.getElementById('past').innerHTML=past+` ${(past/ONE_POUND_FAT).toFixed(1)}`;;
-
-        var shrink=10;
-        document.getElementById('past').style.width=`${past/shrink}px`;
-        document.getElementById('today').style.width=`${today/shrink}px`;
+        document.getElementById('today').innerHTML=today+` ${(today/ONE_POUND_FAT).toFixed(1)}`;
+        
+        document.getElementById('past').style.width=`${past_percent}%`;
+        document.getElementById('today').style.width=`${today_percent}%`;
         
           
         
