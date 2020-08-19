@@ -219,6 +219,7 @@ function test(){
     var authcode= localStorage.getItem("authcode");
     
     getHeartToday(authcode);
+    getScale(authcode);
 }
 
 
@@ -248,6 +249,43 @@ function test(){
       var end_date = getDateFormat(-30);
 //https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
       xhttp.open("GET", `https://api.fitbit.com/1/user/-/activities/heart/date/today/${end_date}/1min.json`, true);
+      xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
+
+
+      xhttp.send();
+
+
+    }
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+    function getScale(token){
+
+      
+      
+      var xhttp = new XMLHttpRequest();
+      
+
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var object =  JSON.parse(this.responseText);
+            var kg = object['weight'][0]['weight'];
+            var lbs= kg*2.20462262185;
+            document.getElementById('scale').innerHTML=lbs.toFixed(2);
+            
+          
+        }else{
+          console.log( this.responseText);
+        }
+      };
+
+      var end_date = getDateFormat(-30);
+//https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
+      xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01.json`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
 
 
@@ -802,7 +840,11 @@ function toggle(handle){
   <div id='bar' >
     <div id='past' class='bar' >1</div><div id='today' class='bar'>2</div>
   </div>
+
+  <div id='scale'></div>
 <h2>MASTER </h2>
+
+
 
 
 <div id='master_total'></div>
