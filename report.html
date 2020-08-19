@@ -277,9 +277,20 @@ function test(){
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var object =  JSON.parse(this.responseText);
-            var kg = object['weight'][0]['weight'];
-            var lbs= kg*2.20462262185;
-            document.getElementById('scale').innerHTML=lbs.toFixed(2);
+            
+            var list=[];
+            var last_key;
+            for(var key in object['weight']){
+                var kg = object['weight'][key]['weight'];
+                list.push((kg*2.20462262185).toFixed(2));
+                last_key=key;
+
+            }
+            var first= list[0];
+            var min = Math.min(...list);
+            var last= list[last_key];
+            document.getElementById('scale').innerHTML=`${first} - ${min} -  ${last}`;
+            
             
           
         }else{
@@ -289,7 +300,7 @@ function test(){
 
       var end_date = getDateFormat(-30);
 //https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
-      xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01.json`, true);
+      xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01/today.json`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
 
 
