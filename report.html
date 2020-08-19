@@ -27,13 +27,21 @@
   border-style: outset;
   color:white;
   padding: 3px;
-  text-align: center;
+  text-align: left;
+
 }
       .bar{
           display: inline-block;
           color:white;
-          text-align: center;
           
+          text-align: center;
+      }
+
+      p{
+        text-align: center;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
       }
 
       #past{
@@ -45,6 +53,8 @@
         border:none;
             background-color: CornflowerBlue;
       }
+
+
       .right{
         background-color: red;
         float:right;
@@ -339,7 +349,7 @@ function combineData(){
           
 
           document.getElementById('bar').style.backgroundColor='gold';
-          document.getElementById('bar').innerHTML='MISSION ACCOMPLISHED';
+          document.getElementById('bar').innerHTML='<p>MISSION ACCOMPLISHED</p>';
 
          
             document.getElementById('past').style.display=`hidden`;
