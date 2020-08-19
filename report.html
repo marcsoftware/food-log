@@ -22,18 +22,27 @@
 
       }
 
+
+#bar{
+  border-style: outset;
+  color:white;
+  padding: 3px;
+  text-align: center;
+}
       .bar{
           display: inline-block;
           color:white;
+          text-align: center;
           
       }
 
       #past{
-           
+            border:none;
             background-color: DarkSlateBlue;
       }
 
       #today{
+        border:none;
             background-color: CornflowerBlue;
       }
       .right{
@@ -327,10 +336,19 @@ function combineData(){
       
       var goal = (5*ONE_POUND_FAT);
      if((today+past)>=goal){
-          past=goal;
-          today=0;
+          
 
-          document.getElementById('past').style.backgroundColor='gold';
+          document.getElementById('bar').style.backgroundColor='gold';
+          document.getElementById('bar').innerHTML='MISSION ACCOMPLISHED';
+
+         
+            document.getElementById('past').style.display=`hidden`;
+            document.getElementById('today').style.display=`hidden`;
+
+
+          return;
+          
+          
 
         }
 
