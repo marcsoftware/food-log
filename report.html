@@ -210,11 +210,22 @@ function init(){
     drawGraph();
 
 
-   // document.getElementById('json').value=(localStorage.getItem("raw"));
+    combineData();
+   
+    
+
+}
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+// TODO there is a better way to do this.
+function wait(){
+  alert(1);
     parse();
 
     combineData();
-
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -244,7 +255,7 @@ function test(){
             var object =  JSON.parse(this.responseText);
             
             document.getElementById("json").value = this.responseText;
-            
+            wait();
           
         }else{
           console.log( this.responseText);
@@ -884,7 +895,7 @@ function toggle(handle){
 <h2>FITBIT REPORT</h2>
 <p id='results' >EMPTY</p>
 <p id='error' >EMPTY</p>
-<textarea id='json'>
+<textarea id='json' >
   
 
 </textarea>
