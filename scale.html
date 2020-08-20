@@ -169,8 +169,8 @@ function getDateFormat(offset){
     
       xhttp.open("POST", `https://api.fitbit.com/1/user/-/body/log/weight.json?weight=${weight_in_kg}&date=2020-08-20&time=22%3A33%3A55`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
-      xhttp.setRequestHeader('Accept-Language', 'en-US'); // this determine if KG or LBS
-      xhttp.setRequestHeader('Content-Language', 'en-US'); // this determine if KG or LBS
+      xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
+      
 
       xhttp.send();
 

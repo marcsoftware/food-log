@@ -315,7 +315,7 @@ function test(){
             for(var key in object['weight']){
                 var kg = object['weight'][key]['weight'];
 
-                var num=(kg*2.20462262185).toFixed(1)
+                var num=kg;
                 //num = num.slice(0, (num.indexOf("."))+2);
 
                 list.push(num);
@@ -338,6 +338,7 @@ function test(){
 //https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
       xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/${DATE_FILTER}/today.json`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
+      xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
 
 
       xhttp.send();
