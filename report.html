@@ -203,6 +203,7 @@ window.onload=init;
 //---------------------------------------------------------------------
 
 function init(){
+  DATE_FILTER=getMonth();
   test();
     //getAllFoodOnDate();
     //getAllNames();
@@ -216,6 +217,12 @@ function init(){
 
 }
 
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+function getMonth(){
+   return '2020-08-01';
+}
 
 //---------------------------------------------------------------------
 //
@@ -312,7 +319,7 @@ function test(){
 
       var end_date = getDateFormat(-30);
 //https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
-      xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01/today.json`, true);
+      xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/${DATE_FILTER}/today.json`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
 
 
@@ -330,7 +337,7 @@ function test(){
 var ONE_POUND_FAT=3500; // 1 pound of fat is 3500 calories
 var VIEW_WIDTH=3000;
 var BASE_CALORIES=2000; // calories burned per day by user
-var DATE_FILTER='2020-08-01';
+var DATE_FILTER;
 function combineData(){
   var table_rows=[];
   var calorie_total=0;
@@ -851,7 +858,7 @@ function toggle(handle){
   runningTally=0;
   document.getElementById('runningTally').innerHTML='';
   var index=(handle.value);
-  var options = ['1950-01-01','2020-08-01'];
+  var options = ['1950-01-01',DATE_FILTER];
   DATE_FILTER=options[index];
   combineData();
 
