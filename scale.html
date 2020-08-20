@@ -125,13 +125,51 @@ function getDateFormat(offset){
           handle.innerHTML+=`${dates[i]} _ <div class='block' style='width:${(kg[i]-79)*30}px'> ${pounds[i]} _ ${kg[i]}</div><br>`
       }
    }
+
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    // 
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function save(){
+      var handle = document.getElementById('weight');
+          var token= localStorage.getItem("authcode");
+        //https://api.fitbit.com/1/user/-/body/log/weight.json?weight=10&date=2020-08-20&time=22%3A33%3A44
+
+
+      var xhttp = new XMLHttpRequest();
+      
+
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+            
+            
+            
+          
+        }else{
+          alert('ERROR: '+this.responseText);
+        }
+      };
+
+     
+      
+
+      xhttp.open("POST", `https://api.fitbit.com/1/user/-/body/log/weight.json?weight=55&date=2020-08-20&time=22%3A33%3A55`, true);
+      xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
+
+
+      xhttp.send();
+
+    }
+
 </script>
 
 <body>
 
 <div id='today_scale'></div>
 <input type="text" id='weight' /><br/>
-<button onclick="test()">save</button> <br/>
+<button onclick="save(this)">save</button> <br/>
  <button onclick="test()">test</button> <br/>
  <textarea id='scale_results'></textarea>
  <div id='scale_graph'></div>
