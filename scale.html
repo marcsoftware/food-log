@@ -58,15 +58,22 @@ function test(){
             
             var list=[];
             var last_key;
+            var date_list=[];
+            var kg_list=[];
             for(var key in object['weight']){
                 var kg = object['weight'][key]['weight'];
                 list.push((kg*2.20462262185).toFixed(2));
+                date_list.push(object['weight'][key]['date']);
+                kg_list.push(object['weight'][key]['weight']);
+                
                 last_key=key;
 
             }
+          parse(date_list,list,kg_list);
             var first= list[0];
             var min = Math.min(...list);
             var last= list[last_key];
+            document.getElementById('scale_results').innerHTML=`${last}`;
             document.getElementById('scale_results').innerHTML=`${first} - ${min} -  ${last}`;
             
             
@@ -76,6 +83,7 @@ function test(){
         }
       };
 
+     
       var end_date = getDateFormat(-30);
 //https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
       xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01/today.json`, true);
@@ -110,34 +118,23 @@ function getDateFormat(offset){
     //--------------------------------------------------------------------------------------------------------------------------------
     //
     //--------------------------------------------------------------------------------------------------------------------------------
-    var ONE_POUND_FAT=3500;
-    function parse(){
-      //setCookie('raw',document.getElementById('json').value);
-        localStorage.setItem("raw", document.getElementById('scale_results').value);
-        document.getElementById('total').innerHTML='';
-       var totalCal=0;
-       var totalMinutes=0;
-       var new_json= JSON.parse(document.getElementById('scale_results').value)['activities-heart'];
-      var container=[];
-      for(let i in new_json){
-          
-          var list = getMinutes(i);
-          totalCal+=parseInt(list[2]);
-          totalMinutes+=parseInt(list[1]);
-          container.push(`${list[0]} <p class='block' style='width:${list[2]/2}px'>${list[2]} | ${list[1]} ( ${Math.round(list[2]/list[1])})</p><br/>`);
-          
-          
+    
+    function parse(dates,pounds,kg){
+      var handle = document.getElementById('scale_graph');
+      for(var i =0;i<dates.length;i++){
+          handle.innerHTML+=`${dates[i]} ${pounds[i]} ${kg[i]}<br>`
       }
-}
+   }
 </script>
 
 <body>
 
-
+<div id='today_scale'></div>
 <input type="text" id='weight' /><br/>
 <button onclick="test()">save</button> <br/>
  <button onclick="test()">test</button> <br/>
  <textarea id='scale_results'></textarea>
+ <div id='scale_graph'></div>
  
 </body>
 </html>
