@@ -140,10 +140,10 @@ function getDateFormat(offset){
     function save(){
       var handle = document.getElementById('weight');
       var weight_in_pounds=handle.value;
-      var weight_in_kg=weight_in_pounds/2.20462262185;
-      var rounded = Math.round(weight_in_kg*10)/10; // round to nearest tenth
       
-      weight_in_kg=rounded;
+      
+      
+      
           var token= localStorage.getItem("authcode");
         //https://api.fitbit.com/1/user/-/body/log/weight.json?weight=10&date=2020-08-20&time=22%3A33%3A44
 
@@ -167,7 +167,7 @@ function getDateFormat(offset){
      
       
     
-      xhttp.open("POST", `https://api.fitbit.com/1/user/-/body/log/weight.json?weight=${weight_in_kg}&date=2020-08-20&time=22%3A33%3A55`, true);
+      xhttp.open("POST", `https://api.fitbit.com/1/user/-/body/log/weight.json?weight=${weight_in_pounds}&date=2020-08-20&time=22%3A33%3A55`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
       xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
       
