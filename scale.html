@@ -62,24 +62,21 @@ function test(){
             var kg_list=[];
             for(var key in object['weight']){
                 var kg = object['weight'][key]['weight'];
+       
+               
 
-                var num=(kg*2.20462262185).toFixed(1);
-                num = num.slice(0, (num.indexOf("."))+2);
 
-                var knum=(kg*2.20462262185).toFixed(3);
-                knum = knum.slice(0, (num.indexOf("."))+4);
-
-                list.push(num);
+                
                 date_list.push(object['weight'][key]['date']);
-                kg_list.push(knum);
+                kg_list.push(kg);
                 
                 last_key=key;
 
             }
-          parse(date_list.reverse(),list.reverse(),kg_list.reverse());
-            var first= list[0];
-            var min = Math.min(...list);
-            var last= list[last_key];
+          parse(date_list.reverse(),kg_list.reverse());
+            var first= kg_list[0];
+            var min = Math.min(...kg_list);
+            var last= kg_list[last_key];
             document.getElementById('scale_results').innerHTML=`${last}`;
             document.getElementById('scale_results').innerHTML=`${first} - ${min} -  ${last}`;
             
@@ -95,7 +92,8 @@ function test(){
 //https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
       xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01/today.json`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
-      xhttp.setRequestHeader('Accept-Language', 'en-US'); // this determine if KG or LBS
+      xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
+      
 
       xhttp.send();
 
@@ -126,11 +124,12 @@ function getDateFormat(offset){
     //
     //--------------------------------------------------------------------------------------------------------------------------------
     
-    function parse(dates,pounds,kg){
+    function parse(dates,kg){
       var handle = document.getElementById('scale_graph');
-      var math = (kg[i]-79)*30;
+      
       for(var i =0;i<dates.length;i++){
-          handle.innerHTML+=`${dates[i]} _ <div class='block' style='width:${math}px'> ${kg[i]} _ ${pounds[i]}</div><br>`
+          var math = (kg[i]-170)*10;
+          handle.innerHTML+=`${dates[i]} _ <div class='block' style='width:${math}px'> ${kg[i]} </div><br>`
       }
    }
 
@@ -171,7 +170,7 @@ function getDateFormat(offset){
       xhttp.open("POST", `https://api.fitbit.com/1/user/-/body/log/weight.json?weight=${weight_in_kg}&date=2020-08-20&time=22%3A33%3A55`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
       xhttp.setRequestHeader('Accept-Language', 'en-US'); // this determine if KG or LBS
-
+      xhttp.setRequestHeader('Content-Language', 'en-US'); // this determine if KG or LBS
 
       xhttp.send();
 
@@ -193,3 +192,4 @@ function getDateFormat(offset){
  
 </body>
 </html>
+
