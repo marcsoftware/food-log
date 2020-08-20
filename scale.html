@@ -142,13 +142,13 @@ function getDateFormat(offset){
       
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            alert(this.responseText);
+            document.getElementById('feedback').innerHTML+=('success: '+this.responseText);
             
             
             
           
         }else{
-          alert('ERROR: '+this.responseText);
+          document.getElementById('feedback').innerHTML+=('ERROR: '+this.responseText);
         }
       };
 
@@ -168,7 +168,10 @@ function getDateFormat(offset){
 <body>
 
 <div id='today_scale'></div>
-<input type="text" id='weight' /><br/>
+<input type="text" id='weight' />
+<div id='feedback'></div><br/>
+<br/>
+<br/>
 <button onclick="save(this)">save</button> <br/>
  <button onclick="test()">test</button> <br/>
  <textarea id='scale_results'></textarea>
