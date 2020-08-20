@@ -62,7 +62,11 @@ function test(){
             var kg_list=[];
             for(var key in object['weight']){
                 var kg = object['weight'][key]['weight'];
-                list.push((kg*2.20462262185).toFixed(2));
+
+                var num=(kg*2.20462262185).toFixed(2)
+                num = num.slice(0, (num.indexOf("."))+2);
+
+                list.push(num);
                 date_list.push(object['weight'][key]['date']);
                 kg_list.push(object['weight'][key]['weight']);
                 
@@ -88,7 +92,7 @@ function test(){
 //https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
       xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01/today.json`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
-
+      xhttp.setRequestHeader('Accept-Language', 'en-US'); // this determine if KG or LBS
 
       xhttp.send();
 
@@ -132,6 +136,11 @@ function getDateFormat(offset){
     //--------------------------------------------------------------------------------------------------------------------------------
     function save(){
       var handle = document.getElementById('weight');
+      var weight_in_pounds=handle.value;
+      var weight_in_kg=weight_in_pounds/2.20462262185;
+      var rounded = Math.round(weight_in_kg*10)/10; // round to nearest tenth
+      
+      weight_in_kg=rounded;
           var token= localStorage.getItem("authcode");
         //https://api.fitbit.com/1/user/-/body/log/weight.json?weight=10&date=2020-08-20&time=22%3A33%3A44
 
@@ -154,9 +163,10 @@ function getDateFormat(offset){
 
      
       
-
-      xhttp.open("POST", `https://api.fitbit.com/1/user/-/body/log/weight.json?weight=55&date=2020-08-20&time=22%3A33%3A55`, true);
+    
+      xhttp.open("POST", `https://api.fitbit.com/1/user/-/body/log/weight.json?weight=${weight_in_kg}&date=2020-08-20&time=22%3A33%3A55`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
+      xhttp.setRequestHeader('Accept-Language', 'en-US'); // this determine if KG or LBS
 
 
       xhttp.send();
