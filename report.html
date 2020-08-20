@@ -314,7 +314,11 @@ function test(){
             var last_key;
             for(var key in object['weight']){
                 var kg = object['weight'][key]['weight'];
-                list.push((kg*2.20462262185).toFixed(2));
+
+                var num=(kg*2.20462262185).toFixed(1)
+                //num = num.slice(0, (num.indexOf("."))+2);
+
+                list.push(num);
                 last_key=key;
 
             }
