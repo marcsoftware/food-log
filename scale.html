@@ -69,7 +69,7 @@ function test(){
                 last_key=key;
 
             }
-          parse(date_list,list,kg_list);
+          parse(date_list.reverse(),list.reverse(),kg_list.reverse());
             var first= list[0];
             var min = Math.min(...list);
             var last= list[last_key];
@@ -122,7 +122,7 @@ function getDateFormat(offset){
     function parse(dates,pounds,kg){
       var handle = document.getElementById('scale_graph');
       for(var i =0;i<dates.length;i++){
-          handle.innerHTML+=`${dates[i]} ${pounds[i]} ${kg[i]}<br>`
+          handle.innerHTML+=`${dates[i]} _ ${pounds[i]} _ ${kg[i]}<br>`
       }
    }
 </script>
