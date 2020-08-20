@@ -122,7 +122,7 @@ function getDateFormat(offset){
     function parse(dates,pounds,kg){
       var handle = document.getElementById('scale_graph');
       for(var i =0;i<dates.length;i++){
-          handle.innerHTML+=`${dates[i]} _ ${pounds[i]} _ ${kg[i]}<br>`
+          handle.innerHTML+=`${dates[i]} _ <div class='block' style='width:${(kg[i]-79)*30}px'> ${pounds[i]} _ ${kg[i]}</div><br>`
       }
    }
 </script>
