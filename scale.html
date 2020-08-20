@@ -63,14 +63,15 @@ function test(){
             for(var key in object['weight']){
                 var kg = object['weight'][key]['weight'];
 
-                var num=(kg*2.20462262185).toFixed(2)
+                var num=(kg*2.20462262185).toFixed(1);
                 num = num.slice(0, (num.indexOf("."))+2);
 
-
+                var knum=(kg*2.20462262185).toFixed(3);
+                knum = knum.slice(0, (num.indexOf("."))+4);
 
                 list.push(num);
                 date_list.push(object['weight'][key]['date']);
-                kg_list.push(object['weight'][key]['weight']);
+                kg_list.push(knum);
                 
                 last_key=key;
 
@@ -127,8 +128,9 @@ function getDateFormat(offset){
     
     function parse(dates,pounds,kg){
       var handle = document.getElementById('scale_graph');
+      var math = (kg[i]-79)*30;
       for(var i =0;i<dates.length;i++){
-          handle.innerHTML+=`${dates[i]} _ <div class='block' style='width:${(kg[i]-79)*30}px'> ${pounds[i]} _ ${kg[i]}</div><br>`
+          handle.innerHTML+=`${dates[i]} _ <div class='block' style='width:${math}px'> ${kg[i]} _ ${pounds[i]}</div><br>`
       }
    }
 
