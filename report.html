@@ -221,7 +221,20 @@ function init(){
 //
 //---------------------------------------------------------------------
 function getMonth(){
-   return '2020-08-01';
+  var target_date = new Date();
+
+    target_date.setDate(target_date.getDate());
+
+    var dd = '01';
+    var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = target_date.getFullYear();
+
+    //target_date = mm + '-' + dd+ '-' +yyyy  ;
+    //target_date = yyyy + '-' + mm + '-' + dd;
+    target_date = yyyy + '-' + mm + '-' + dd;
+    return target_date;
+
+   
 }
 
 //---------------------------------------------------------------------
