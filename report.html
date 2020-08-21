@@ -203,16 +203,9 @@ window.onload=init;
 //---------------------------------------------------------------------
 
 function init(){
-  DATE_FILTER=getMonth();
-  test();
-    //getAllFoodOnDate();
-    //getAllNames();
-    getWeekCalories();
-    drawGraph();
+    DATE_FILTER=getMonth();
+    test();
 
-
-    combineData();
-   
     
 
 }
@@ -244,6 +237,13 @@ function getMonth(){
 function wait(){
   
     parse();
+    
+    getWeekCalories();
+    drawGraph();
+
+
+    combineData();
+   
 
   
 }
