@@ -492,7 +492,10 @@ function combineData(){
 
         try{
           var date = json['activities-heart'][id]['dateTime'];
-          var customZone = json['activities-heart'][id]['value']['heartRateZones'][0];
+          //var customZone = json['activities-heart'][id]['value']['customHeartRateZones'][1];
+          
+
+
           var fatburnZone = json['activities-heart'][id]['value']['heartRateZones'][1];
           var cardioZone = json['activities-heart'][id]['value']['heartRateZones'][2];
           var peakZone = json['activities-heart'][id]['value']['heartRateZones'][3];
@@ -503,10 +506,10 @@ function combineData(){
         var totalCalories=parseInt(fatburnZone[fieldName])+
                           parseInt(cardioZone[fieldName])+
                           parseInt(peakZone[fieldName])+
-                            parseInt(customZone[fieldName]);
+                            parseInt(0);
         totalCalories=totalCalories|| 0;
          fieldName = 'minutes';
-        var totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName])+parseInt(customZone[fieldName]);
+        var totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName])+parseInt(0);
 totalMinutes=totalMinutes|| 0;
 
         var record =  {"minutes":totalMinutes , "calories":totalCalories}  ;
