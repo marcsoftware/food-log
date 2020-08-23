@@ -437,7 +437,7 @@ function combineData(){
       today=value;
 
       runningTally+=value;
-      var x =`${date}<div class="block " style="width:${runningTally/40}px" >   ${runningTally} | ${(runningTally/ONE_POUND_FAT).toFixed(2)} </div><br> `
+      var x =`${date}<div class="block " style="width:${runningTally/40}px" >   ${(runningTally/ONE_POUND_FAT).toFixed(2)} lbs ${((runningTally/(ONE_POUND_FAT*5))*100).toFixed(2)}% </div><br> `
       document.getElementById('runningTally').innerHTML+=x;
 
       drawProgressBar();
