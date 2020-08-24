@@ -357,6 +357,7 @@ var ONE_POUND_FAT=3500; // 1 pound of fat is 3500 calories
 var VIEW_WIDTH=3000;
 var BASE_CALORIES=2000; // calories burned per day by user
 var DATE_FILTER;
+var TODAY_DIET=0;
 function combineData(){
   var table_rows=[];
   var calorie_total=0;
@@ -404,12 +405,14 @@ function combineData(){
                     <th> <div class="block ${z_css}" style="width:${Math.abs((z)/shrink*100)}%" >   ${z} </div> </th>`;
                    
      row+='</tr>';
+     TODAY_DIET=food_burn;
      table_rows.push(row);
      drawRunningTally(i,total_burn);
       
 
     }
    
+    subtractTodayDietFromProgressBar();
     reverseElements();
     document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${(calorie_total/ONE_POUND_FAT).toFixed(2)}pounds`;
     hand.innerHTML='<table>'+table_rows.reverse().join('')+'</table>' ;
@@ -433,6 +436,7 @@ function combineData(){
     var runningTally=0;
     var today=0;
     var past=0;
+
     function drawRunningTally(date,value){
       past+=today;
       today=value;
@@ -444,12 +448,41 @@ function combineData(){
       drawProgressBar();
     }
 
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    // 
+    //--------------------------------------------------------------------------------------------------------------------------------
+
+    function subtractTodayDietFromProgressBar(){
+        if(TODAY_DIET >= 2000){
+      
+          var goal = (5*ONE_POUND_FAT);
+          
+          var past_percent= (past/goal)*100;
+        var today_percent= ((today-TODAY_DIET)/goal)*100;
+        var total_percent = parseFloat(past_percent)+parseFloat(today_percent);
+
+          document.getElementById('total_percent').innerHTML=`${(total_percent-TODAY_DIET).toFixed(2)}%`;
+        //alert(`${(total_percent).toFixed(2)}%`);
+          
+          document.getElementById('today').style.width=`${today_percent}%`;
+
+          document.getElementById('today').innerHTML=today+`<span> ${(today/ONE_POUND_FAT).toFixed(2)}lbs </span>${(today_percent).toFixed(2)}%`;
+        document.getElementById('total_percent').innerHTML=`${(total_percent).toFixed(2)}%`;
+
+        }else{
+
+        }
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------------
     //
     //--------------------------------------------------------------------------------------------------------------------------------
     function drawProgressBar(){
       
       var goal = (5*ONE_POUND_FAT);
+
+      
      if((today+past)>=goal){
           
 
@@ -466,7 +499,8 @@ function combineData(){
           
 
         }
-
+  
+        
         var past_percent= (past/goal)*100;
         var today_percent= (today/goal)*100;
         var total_percent = parseFloat(past_percent)+parseFloat(today_percent);
@@ -509,9 +543,9 @@ function combineData(){
                           parseInt(peakZone[fieldName])+
                             parseInt(0);
         totalCalories=totalCalories|| 0;
-         fieldName = 'minutes';
+        fieldName = 'minutes';
         var totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName])+parseInt(0);
-totalMinutes=totalMinutes|| 0;
+        totalMinutes=totalMinutes|| 0;
 
         var record =  {"minutes":totalMinutes , "calories":totalCalories}  ;
         

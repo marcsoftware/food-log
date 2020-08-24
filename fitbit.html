@@ -34,7 +34,7 @@ function init(){
 //--------------------------------------------------------------------------------------------------------------------------------
 function test(){
     var authcode= localStorage.getItem("authcode");
-    console.log(authcode);
+    console.log(authcode.trim());
     getHeartToday(authcode);
 }
 
