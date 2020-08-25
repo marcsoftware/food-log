@@ -20,9 +20,10 @@ window.onload=init;
 //--------------------------------------------------------------------------------------------------------------------------------
 //
 //--------------------------------------------------------------------------------------------------------------------------------
+var callback_url = `http://localhost:8080`;
 function init(){
   
-  
+  document.getElementById('hyperlink').href=getUrl();
   test();
   document.getElementById('json').value=(localStorage.getItem("raw"));
   //parse();
@@ -63,14 +64,24 @@ function test(){
       };
 
       
-
-      xhttp.open("POST", "https://api.fitbit.com/oauth2/token?code="+code+"&grant_type=authorization_code&redirect_uri=http://localhost", true);
+      
+      //var callback_url = `http://localhost`;
+      xhttp.open("POST", `https://api.fitbit.com/oauth2/token?code=${code}&grant_type=authorization_code&redirect_uri=${callback_url}`, true);
       xhttp.setRequestHeader('Authorization', 'Basic MjJCVlpDOmRjMTFjNzYwNTA4MjRmYjUwMWRjODhmNWRjYzRlOWE0'); // THIS is base64 of id and another thing.
       xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
       xhttp.send();
     }
 
+//--------------------------------------------------------------------------------------------------------------------------------
+// this get the CODE from fitbit
+//--------------------------------------------------------------------------------------------------------------------------------
+
+function getUrl(){
+  
+  return `https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22BVZC&redirect_uri=${callback_url}&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight`
+  
+}
 //--------------------------------------------------------------------------------------------------------------------------------
 //
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -245,7 +256,7 @@ function getSum(some_array){
 
 <body>
 
-<a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22BVZC&redirect_uri=http://localhost&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">url for code</a>
+<a id='hyperlink' href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22BVZC&redirect_uri=http://localhost&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">url for code</a>
 
 <input type="text" id='code' /><br/>
 
@@ -265,3 +276,4 @@ function getSum(some_array){
  <p id='total' ></p>
 </body>
 </html>
+
