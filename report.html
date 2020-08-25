@@ -459,15 +459,15 @@ function combineData(){
       var goal = (5*ONE_POUND_FAT);
 
       
-     if((today+past)>=goal){
+     if((today-food_burn)+past)>=goal){
           
 
           document.getElementById('bar').style.backgroundColor='gold';
-          document.getElementById('bar').innerHTML='<p>MISSION ACCOMPLISHED</p>';
+          //document.getElementById('bar').innerHTML='<p>MISSION ACCOMPLISHED</p>';
 
          
-            document.getElementById('past').style.display=`hidden`;
-            document.getElementById('today').style.display=`hidden`;
+            document.getElementById('past').style.backgroundColor=`gold`;
+            document.getElementById('today').style.backgroundColor=`gold`;
 
 
           return;
