@@ -484,8 +484,8 @@ function combineData(){
         var past_percent= (past/goal)*100;
         var today_percent= (real_today/goal)*100;
         var total_percent = parseFloat(past_percent)+parseFloat(today_percent);
-        document.getElementById('past').innerHTML=past+`<span> ${(past/ONE_POUND_FAT).toFixed(2)}lbs</span>`;;
-        document.getElementById('today').innerHTML=today+`<span> ${(today/ONE_POUND_FAT).toFixed(2)}lbs </span>${(today_percent).toFixed(2)}%`;
+        document.getElementById('past').innerHTML=`${(past_percent).toFixed(2)}%<span> ${(past/ONE_POUND_FAT).toFixed(2)}lbs  </span>`;;
+        document.getElementById('today').innerHTML=`${(today_percent).toFixed(2)}% <span> ${(today/ONE_POUND_FAT).toFixed(2)}lbs </span>`;
         document.getElementById('total_percent').innerHTML=`${(total_percent).toFixed(2)}%`;
         
         document.getElementById('past').style.width=`${past_percent}%`;
