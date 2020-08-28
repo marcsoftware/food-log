@@ -456,26 +456,11 @@ function combineData(){
     //--------------------------------------------------------------------------------------------------------------------------------
     function drawProgressBar(food_burn){
       
+      
       var goal = (5*ONE_POUND_FAT);
 
       
-     if( ((today-food_burn)+past)>=goal){
-          
-
-          document.getElementById('bar').style.backgroundColor='gold';
-          //document.getElementById('bar').innerHTML='<p>MISSION ACCOMPLISHED</p>';
-
-         
-            document.getElementById('past').style.backgroundColor=`gold`;
-            document.getElementById('today').style.backgroundColor=`gold`;
-
-            document.getElementById('past').style.width=`50%`;
-            document.getElementById('today').style.width=`50%`;
-          return;
-          
-          
-
-        }
+    
   
         var real_today=today;
         
@@ -496,6 +481,23 @@ function combineData(){
         
           
         
+         if( ((today-food_burn)+past)>=goal){
+          
+
+          document.getElementById('bar').style.backgroundColor='gold';
+          //document.getElementById('bar').innerHTML='<p>MISSION ACCOMPLISHED</p>';
+
+         
+            document.getElementById('past').style.backgroundColor=`gold`;
+            document.getElementById('today').style.backgroundColor=`gold`;
+
+            document.getElementById('past').style.width=`50%`;
+            document.getElementById('today').style.width=`50%`;
+          return;
+          
+          
+
+        }
 
 
     }
