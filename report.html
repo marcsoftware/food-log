@@ -14,7 +14,7 @@
       object{
         margin: 0px;
         background-color: red;
-        height: 12px;
+        height: 460px;
       }
 
      
@@ -215,6 +215,7 @@ window.onload=init;
 //---------------------------------------------------------------------
 
 function init(){
+  drawHeader();
     DATE_FILTER=getMonth();
     test();
 
@@ -926,11 +927,9 @@ function toggle(handle){
 
 </script>
 
-<object data="header.html"> 
-    Your browser doesn’t support the object tag. 
-</object>
 
-
+<div id='header'></div>
+ 
 
 <title>REPORT</title>
 

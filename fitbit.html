@@ -24,7 +24,7 @@ window.onload=init;
 //--------------------------------------------------------------------------------------------------------------------------------
 
 function init(){
-  
+  drawHeader();
   document.getElementById('hyperlink').href=getUrl();
   test();
   document.getElementById('json').value=(localStorage.getItem("raw"));
@@ -257,7 +257,7 @@ function getSum(some_array){
 </script>
 
 <body>
-
+<div id='header'></div>
 <a id='hyperlink' href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22BVZC&redirect_uri=http://localhost&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight">url for code</a>
 
 <input type="text" id='code' /><br/>
