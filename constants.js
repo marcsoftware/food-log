@@ -12,7 +12,6 @@ function drawHeader(){
 }
 //---------------------------------
 
-/*
-var database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
-var callback_url =`http://hostreactapp.s3-website-us-east-1.amazonaws.com/`;
-*/
+
+ //database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+ //callback_url =`https://poundreport.com`;
