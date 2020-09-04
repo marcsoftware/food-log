@@ -10,8 +10,14 @@ function drawHeader(){
         handle.innerHTML='<a href="/report.html">report</a> <a href="/foodlog.html">food log</a> <a href="/fitbit.html">fitbit</a> <a href="/scale.html">scale</a>'
     }
 }
+
+var client_id='22BVZC';
 //---------------------------------
 
 
  //database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
  //callback_url =`https://poundreport.com`;
+
+//OAuth 2.0 Client ID
+//22BWQ4 
+ //client_id='22BWQ4';
