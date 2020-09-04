@@ -1,4 +1,4 @@
-var callback_url = `http://localhost:8080`;  // from fitbit.com app setting page
+var callback_url = `http://localhost:8080/login.html`;  // from fitbit.com app setting page
 
 var database_url='http://localhost:5000/demo'; // endpoint of java database
 
@@ -15,9 +15,6 @@ var client_id='22BVZC';
 //---------------------------------
 
 
- //database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
- //callback_url =`https://poundreport.com`;
-
-//OAuth 2.0 Client ID
-//22BWQ4 
- //client_id='22BWQ4';
+//database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+//callback_url =`https://poundreport.com`;
+//client_id='22BWQ4';
