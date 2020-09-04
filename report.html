@@ -439,7 +439,7 @@ function combineData(){
           var list = document.getElementById('runningTally').innerHTML;
           list = list.split('<br>');
           list = list.reverse();
-          document.getElementById('runningTally').innerHTML=list.join('<br>');
+         // document.getElementById('runningTally').innerHTML=list.join('<br>');
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------
@@ -455,7 +455,7 @@ function combineData(){
 
       runningTally+=today;
       var x =`${date}<div class="block " style="width:${runningTally/40}px" >   ${(runningTally/ONE_POUND_FAT).toFixed(2)} lbs ${((runningTally/(ONE_POUND_FAT*POUND_GOAL))*100).toFixed(2)}% </div><br> `
-      document.getElementById('runningTally').innerHTML+=x;
+      //document.getElementById('runningTally').innerHTML+=x;
 
       drawProgressBar(food_burn);
     }
@@ -557,7 +557,7 @@ function combineData(){
     //
     //--------------------------------------------------------------------------------------------------------------------------------
     function output(x){
-        document.getElementById('total2').innerHTML+=x;
+        //document.getElementById('total2').innerHTML+=x;
     }
 
 
@@ -569,7 +569,7 @@ function combineData(){
     function parse(){
       //setCookie('raw',document.getElementById('json').value);
         localStorage.setItem("raw", document.getElementById('json').value);
-        document.getElementById('total2').innerHTML='';
+        //document.getElementById('total2').innerHTML='';
        var totalCal=0;
        var totalMinutes=0;
        var new_json= JSON.parse(document.getElementById('json').value)['activities-heart'];
@@ -587,9 +587,9 @@ function combineData(){
       output(container.reverse().join(''));
       var totalHours = Math.floor(totalMinutes/60);
       var remainder = totalMinutes%60;
-      document.getElementById('burned').innerHTML=totalHours+'h '+remainder+'m ';
-      document.getElementById('burned').innerHTML+=totalCal+'calories ';
-      document.getElementById('burned').innerHTML+=Math.round(totalCal/ONE_POUND_FAT).toFixed(2)+'pounds ';
+      //document.getElementById('burned').innerHTML=totalHours+'h '+remainder+'m ';
+      //document.getElementById('burned').innerHTML+=totalCal+'calories ';
+      //document.getElementById('burned').innerHTML+=Math.round(totalCal/ONE_POUND_FAT).toFixed(2)+'pounds ';
     }
 
 
@@ -608,7 +608,7 @@ function drawGraph(){
       var width=avg_array[i]/8;
       var number =avg_array[i];
       total+=parseInt(number);
-      handle.innerHTML+=date_format+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
+     // handle.innerHTML+=date_format+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
       foodlog_master[date_format]= { "calories":number } ;
 
     }
@@ -621,7 +621,7 @@ function drawGraph(){
     if(burned <=0){
         isPositive=0;
     }
-    document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/ONE_POUND_FAT)} pounds ${text[isPositive]}?  `;
+   // document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/ONE_POUND_FAT)} pounds ${text[isPositive]}?  `;
 
 }
 
@@ -640,14 +640,14 @@ function getWeekCalories(){
     // get last 7 days not including today
     days = avg_array.slice(1,6);
 
-    document.getElementById('average7').innerHTML=getAverage(days);
+    //document.getElementById('average7').innerHTML=getAverage(days);
        
     days = avg_array.slice(1,30);
-    document.getElementById('average30').innerHTML=getAverage(days);   
+    //document.getElementById('average30').innerHTML=getAverage(days);   
   
     days = avg_array.slice(0,6);
     
-    document.getElementById('average7today').innerHTML=getAverage(days); 
+    //document.getElementById('average7today').innerHTML=getAverage(days); 
     
 }
 
@@ -959,33 +959,29 @@ function toggle(handle){
 
 </form>
 
-<h2>RUNNING TALLY</h2>
+
 <div id='runningTally'></div>
 
-<h2>FITBIT REPORT</h2>
-<p id='results' >EMPTY</p>
-<p id='error' >EMPTY</p>
+
+
 <textarea id='json' >
   
 
 </textarea>
-<button onclick="parse()">parse</button> 
-<button onclick="test()">test</button> 
-<p id='burned' >EMPTY</p>
-<div id='total2'>total</div>
+
+
+
  
  
 
-<h2>FOOD REPORT</h2>
 
 
 
-           <p id='stats'></p>
-           <div id='average30'>average30</div>  
-           <div id='average7'>history</div>
-           <div id='average7today'>average</div> 
-           <div >---</div>
-           <div id='total'>total</div>
+
+         
+         
+         
+         
  
 <div id='debug'></div>  
 
