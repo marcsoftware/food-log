@@ -8,9 +8,12 @@
     
     <style>
 
-    
+
     hr{
       border-top: dashed 1px;
+      
+      float:left;
+
     }
 
       object{
@@ -495,8 +498,14 @@ function combineData(){
         
         document.getElementById('past').style.width=`${past_percent}%`;
         document.getElementById('today').style.width=`${today_percent}%`;
-        
-          
+
+          var d = new Date();
+
+ 
+
+        var date = d.getDate();
+
+        document.getElementById('monthBar').style.width=`${(date/30)*100}%`;  
         
          if( ((today-food_burn)+past)>=goal){
           
@@ -939,7 +948,7 @@ function toggle(handle){
 
 </head>
 <body>
-  <hr />
+  <hr id='monthBar' /><br/>
   <div id='bar' >
     <div id='past' class='bar' >1</div><div id='today' class='bar'>2</div>
   </div>
