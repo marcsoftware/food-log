@@ -499,14 +499,21 @@ function combineData(){
         document.getElementById('past').style.width=`${past_percent}%`;
         document.getElementById('today').style.width=`${today_percent}%`;
 
-          var d = new Date();
+          
 
  
+        // monthBar
+        var date = new Date(), year = date.getFullYear(), month = date.getMonth();
 
-        var date = d.getDate();
-
-        document.getElementById('monthBar').style.width=`${(date/30)*100}%`;  
+        var lastDay = new Date(year, month + 1, 0);
+    
+      
+        var today_number = date.getDate();
+        lastDay=(lastDay.getDate());
+        document.getElementById('monthBar').style.width=`${(today_number/lastDay)*100}%`;  
         
+
+        //
          if( ((today-food_burn)+past)>=goal){
           
 
