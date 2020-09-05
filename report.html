@@ -392,6 +392,8 @@ function combineData(){
       var shrink=VIEW_WIDTH;
       var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]['calories']);
       var fitbit_burn=parseInt(fitbit_master[i]['calories']);
+      var fibit_minutes=(fitbit_master[i]['minutes']);
+      var fitbit_average=(fitbit_burn/fibit_minutes).toFixed(1);
       var total_burn=parseInt(food_burn+0+fitbit_burn);
       calorie_total+=parseInt(total_burn);
       var x_css='';
@@ -413,7 +415,7 @@ function combineData(){
       var z= total_burn;
       row+=`<th class='date'>${i} </th>
                    <th> <div class="block ${x_css}" style="width:${Math.abs((x)/shrink*100)}%" >  ${x}</div>  </th>
-                   <th> <div class="block ${y_css}" style="width:${Math.abs((y)/shrink*100)}%" >   ${y} </div> </th>
+                   <th> <div class="block ${y_css}" style="width:${Math.abs((y)/shrink*100)}%" >   ${y} ○  ${fibit_minutes} ○ ${fitbit_average} </div> </th>
                     <th> <div class="block ${z_css}" style="width:${Math.abs((z)/shrink*100)}%" >   ${z} </div> </th>`;
                    
      row+='</tr>';
@@ -968,8 +970,6 @@ function toggle(handle){
   
 
 </textarea>
-
-
 
  
  
