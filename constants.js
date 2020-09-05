@@ -31,7 +31,7 @@ function setConfig(){
 
      }else{
             database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
-            callback_url =`https://poundreport.com`;
+            callback_url =`https://poundreport.com/login.html`;
             client_id='22BWQ4';
      }
 }
