@@ -8,8 +8,10 @@ function drawHeader(){
     var handle=document.getElementById('header');
 
     if(handle){
-        handle.innerHTML='<a href="/index.html">food log</a> <a href="/report.html">report</a>  <a href="/fitbit.html">fitbit</a> <a id="hyperlink">login</a> <a href="/scale.html">scale</a>'
+        handle.innerHTML='<a href="/index.html">food log</a> <a href="/report.html">report</a>  <a href="/fitbit.html">fitbit</a> <a  href="" id="hyperlink">login</a> <a href="/scale.html">scale</a>'
     }
+
+        setConfig();
 }
 
 
@@ -53,7 +55,7 @@ function getUrl(){
 }
 
 
-setConfig();
+
 
 //---------------------------------
 
