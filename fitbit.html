@@ -25,7 +25,7 @@ window.onload=init;
 
 function init(){
   drawHeader();
-  document.getElementById('hyperlink').href=getUrl();
+  
   test();
   document.getElementById('json').value=(localStorage.getItem("raw"));
   //parse();
@@ -75,15 +75,6 @@ function test(){
       xhttp.send();
     }
 
-//--------------------------------------------------------------------------------------------------------------------------------
-// this get the CODE from fitbit
-//--------------------------------------------------------------------------------------------------------------------------------
-
-function getUrl(){
-  
-  return `https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=${client_id}&redirect_uri=${callback_url}&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight`
-  
-}
 //--------------------------------------------------------------------------------------------------------------------------------
 //
 //--------------------------------------------------------------------------------------------------------------------------------

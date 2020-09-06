@@ -8,7 +8,7 @@ function drawHeader(){
     var handle=document.getElementById('header');
 
     if(handle){
-        handle.innerHTML='<a href="/index.html">food log</a> <a href="/report.html">report</a>  <a href="/fitbit.html">fitbit</a> <a href="/scale.html">scale</a>'
+        handle.innerHTML='<a href="/index.html">food log</a> <a href="/report.html">report</a>  <a href="/fitbit.html">fitbit</a> <a id="hyperlink">login</a> <a href="/scale.html">scale</a>'
     }
 }
 
@@ -34,7 +34,24 @@ function setConfig(){
             callback_url =`https://poundreport.com/login.html`;
             client_id='22BWQ4';
      }
+
+
+     document.getElementById('hyperlink').href=getUrl();
+
 }
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+// this get the CODE from fitbit
+//--------------------------------------------------------------------------------------------------------------------------------
+
+function getUrl(){
+  
+  return `https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=${client_id}&redirect_uri=${callback_url}&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight`
+  
+}
+
 
 setConfig();
 
