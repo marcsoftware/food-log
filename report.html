@@ -474,6 +474,8 @@ function combineData(){
     //
     //--------------------------------------------------------------------------------------------------------------------------------
     var POUND_GOAL=10;
+    var ONE_POUND_FAT=3500;
+    var GOAL = POUND_GOAL *ONE_POUND_FAT;
     function drawProgressBar(food_burn){
       
       
@@ -511,6 +513,7 @@ function combineData(){
         var today_number = date.getDate();
         lastDay=(lastDay.getDate());
         document.getElementById('monthBar').style.width=`${(today_number/lastDay)*100}%`;  
+        document.getElementById('monthHalfBar').style.width=`${((today_number/lastDay)*100)/2}%`;  
         
 
         //
@@ -585,7 +588,7 @@ function combineData(){
   //--------------------------------------------------------------------------------------------------------------------------------
     //
     //--------------------------------------------------------------------------------------------------------------------------------
-    var ONE_POUND_FAT=3500;
+    
     function parse(){
       //setCookie('raw',document.getElementById('json').value);
         localStorage.setItem("raw", document.getElementById('json').value);
@@ -956,6 +959,7 @@ function toggle(handle){
 </head>
 <body>
   <hr id='monthBar' /><br/>
+  <hr id='monthHalfBar' /><br/>
   <div id='bar' >
     <div id='past' class='bar' >1</div><div id='today' class='bar'>2</div>
   </div>
