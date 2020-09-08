@@ -56,30 +56,9 @@ function test(){
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var object =  JSON.parse(this.responseText);
+          
             
-            var list=[];
-            var last_key;
-            var date_list=[];
-            var kg_list=[];
-            for(var key in object['weight']){
-                var kg = object['weight'][key]['weight'];
-       
-               
-
-
-                
-                date_list.push(object['weight'][key]['date']);
-                kg_list.push(kg);
-                
-                last_key=key;
-
-            }
-          parse(date_list.reverse(),kg_list.reverse());
-            var first= kg_list[0];
-            var min = Math.min(...kg_list);
-            var last= kg_list[last_key];
-            document.getElementById('scale_results').innerHTML=`${last}`;
-            document.getElementById('scale_results').innerHTML=`${first} - ${min} -  ${last}`;
+            document.getElementById('scale_results').innerHTML=`${this.responseText}`;
             
             
           
@@ -91,7 +70,7 @@ function test(){
      
       var end_date = getDateFormat(-30);
 //https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
-      xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/${end_date}/today.json`, true);
+      xhttp.open("GET", `https://api.fitbit.com/1/user/-/foods/log/date/2020-09-08.json`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
       xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
       

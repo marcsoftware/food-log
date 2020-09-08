@@ -129,7 +129,7 @@ function getDateFormat(offset){
       var handle = document.getElementById('scale_graph');
       
       for(var i =0;i<dates.length;i++){
-          var math = (kg[i]-170)*10;
+          var math = (kg[i]-170)*50;
           handle.innerHTML+=`${dates[i]} _ <div class='block' style='width:${math}px'> ${kg[i]} </div><br>`
       }
    }
