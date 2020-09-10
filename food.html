@@ -71,7 +71,7 @@ function test(){
       var end_date = getDateFormat(-30);
 //https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
 //https://api.fitbit.com/1/user/-/foods/log.json?foodId=0&foodName=coke&mealTypeId=7&unitId=1&amount=1&date=2020-09-08&calories=5
-      xhttp.open("GET", `https://api.fitbit.com/1/user/-/foods/log/date/2020-09-08.json`, true);
+      xhttp.open("GET", `https://api.fitbit.com/1/user/-/profile.json`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
       xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
       
