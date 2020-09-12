@@ -221,10 +221,11 @@ window.onload=init;
 
 function init(){
   drawHeader();
-    DATE_FILTER=getMonth();
+    
+    DATE_FILTER=getUrlArgs();
     test();
 
-    
+     
 
 }
 
@@ -247,6 +248,43 @@ function getMonth(){
 
    
 }
+
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+function getUrlArgs(){
+     
+
+     var pageURL = window.location.toString();
+     
+    
+    if(pageURL.includes('goal')){
+           
+
+           var x=( pageURL.match(/goal=\d+/));
+           x = x[0].match(/\d+/);
+           POUND_GOAL=x;
+
+     }
+
+          
+
+     if(pageURL.includes('start')){
+           
+
+           return pageURL.match(/\d\d-\d\d-\d\d/);
+
+     }else{
+           return  getMonth();
+     }
+
+
+     document.getElementById('hyperlink').href=getUrl();
+
+}
+
 
 //---------------------------------------------------------------------
 //
