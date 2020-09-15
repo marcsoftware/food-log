@@ -616,8 +616,7 @@ function combineData(){
         var fieldName = 'caloriesOut';
         var totalCalories=parseInt(fatburnZone[fieldName])+
                           parseInt(cardioZone[fieldName])+
-                          parseInt(peakZone[fieldName])+
-                            parseInt(customZone);
+                          parseInt(peakZone[fieldName]);                        
 
         if(customZone+aboveCustomZone){
             totalCalories=customZone+aboveCustomZone;
