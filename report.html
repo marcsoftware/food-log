@@ -588,6 +588,7 @@ function combineData(){
     //
     //--------------------------------------------------------------------------------------------------------------------------------
     var fitbit_master = {};
+    var BASE_CALORIE_PER_MINUTE=1; // amount of calories user burns while sitting down
     function getMinutes(id){
         var json=document.getElementById('json').value;
         json= JSON.parse(json);
@@ -603,6 +604,13 @@ function combineData(){
           if(customZone){ // the user might not have setup a customzone
             customZone=parseInt(customZone['caloriesOut']);
             aboveCustomZone=parseInt(aboveCustomZone['caloriesOut']);
+
+            minutesCustom= parseInt(customZone['minutes'])*BASE_CALORIE_PER_MINUTE;
+            minutesAbove= parseInt(aboveCustomZone['minutes'])*BASE_CALORIE_PER_MINUTE;
+            
+            customZone=customZone-minutesCustom;
+            aboveCustomZone=aboveCustomZone-minutesAbove;
+
           }else{
             customZone=0;
             aboveCustomZone=0;
