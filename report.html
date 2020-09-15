@@ -599,11 +599,13 @@ function combineData(){
 
           
           var customZone=json['activities-heart'][id]['value']['customHeartRateZones'][1];
-          
+          var aboveCustomZone=json['activities-heart'][id]['value']['customHeartRateZones'][2];
           if(customZone){ // the user might not have setup a customzone
-            customZone=customZone['caloriesOut'];
+            customZone=parseInt(customZone['caloriesOut']);
+            aboveCustomZone=parseInt(aboveCustomZone['caloriesOut']);
           }else{
             customZone=0;
+            aboveCustomZone=0;
           }
           var fatburnZone = json['activities-heart'][id]['value']['heartRateZones'][1];
           var cardioZone = json['activities-heart'][id]['value']['heartRateZones'][2];
@@ -616,6 +618,10 @@ function combineData(){
                           parseInt(cardioZone[fieldName])+
                           parseInt(peakZone[fieldName])+
                             parseInt(customZone);
+
+        if(customZone+aboveCustomZone){
+            totalCalories=customZone+aboveCustomZone;
+        }                    
         totalCalories=totalCalories|| 0;
         fieldName = 'minutes';
         var totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName])+parseInt(0);
