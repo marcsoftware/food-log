@@ -625,9 +625,10 @@ function combineData(){
         var totalCalories=parseInt(fatburnZone[fieldName])+
                           parseInt(cardioZone[fieldName])+
                           parseInt(peakZone[fieldName]);                        
-
+         console.log('---------->'+totalCalories);                 
         if(customZone+aboveCustomZone){
             totalCalories=customZone+aboveCustomZone;
+            console.log('----------Custom>'+totalCalories);
         }                    
         totalCalories=totalCalories|| 0;
         fieldName = 'minutes';
