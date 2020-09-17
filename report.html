@@ -600,17 +600,31 @@ function combineData(){
 
           
           var customZone=json['activities-heart'][id]['value']['customHeartRateZones'][1];
+<<<<<<< HEAD
           alert(customZone);
           var aboveCustomZone=json['activities-heart'][id]['value']['customHeartRateZones'][2];
           if(customZone){ // the user might not have setup a customZone
             customZone=parseInt(customZone['caloriesOut']);
             aboveCustomZone=parseInt(aboveCustomZone['caloriesOut']);
+=======
+          
+          var aboveCustomZone=json['activities-heart'][id]['value']['customHeartRateZones'][2];
+          
+          if(customZone){ // the user might not have setup a customZone
+
+           
+>>>>>>> 66ac7e914e75532dcc58e4e72db13a22bcc33dc3
 
             minutesCustom= parseInt(customZone['minutes'])*BASE_CALORIE_PER_MINUTE;
             minutesAbove= parseInt(aboveCustomZone['minutes'])*BASE_CALORIE_PER_MINUTE;
             
+             customZone=parseInt(customZone['caloriesOut']);//TODO don't overwrite customZone json info
+
+            aboveCustomZone=parseInt(aboveCustomZone['caloriesOut']);
+
             customZone=customZone-minutesCustom;
             aboveCustomZone=aboveCustomZone-minutesAbove;
+
 
           }else{
             customZone=0;
