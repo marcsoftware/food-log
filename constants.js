@@ -26,7 +26,7 @@ function setConfig(){
           
           
 
-     if(pageURL.toString().includes('localhost')){
+     if(!pageURL.toString().includes('poundreport')){
             callback_url = `http://localhost:8080/login.html`;  // from fitbit.com app setting page
             database_url='http://localhost:5000/demo'; // endpoint of java database
             client_id='22BVZC';
