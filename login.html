@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html>
-<title>INDEX</title>
+<title>LOGIN</title>
 <head>
   <script src="constants.js"></script>
 <script>
@@ -45,6 +45,7 @@ function GetURLParameter(){
           
            localStorage.setItem("authcode", token);
           document.getElementById('result').innerHTML+='done';
+          document.title='✅✅✅'; 
         }
       };
 
