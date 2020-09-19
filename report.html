@@ -542,7 +542,7 @@ function combineData(){
         var total_percent = parseFloat(past_percent)+parseFloat(today_percent);
         document.getElementById('past').innerHTML=`${(past_percent).toFixed(2)}%<span> ${(past/ONE_POUND_FAT).toFixed(2)}lbs  </span>`;;
         document.getElementById('today').innerHTML=`${(today_percent).toFixed(2)}% <span> ${(real_today/ONE_POUND_FAT).toFixed(2)}lbs </span>`;
-        document.getElementById('total_percent').innerHTML=`${(past_percent).toFixed(2)}% 🢂 ${(total_percent).toFixed(2)}% ▪️ ${excercise}🚴`;
+        document.getElementById('total_percent').innerHTML=`${(past_percent).toFixed(2)}% 🢂 ${(today_percent).toFixed(2)}% ▪️ ${excercise}🚴`;
         
         document.getElementById('past').style.width=`${past_percent}%`;
         document.getElementById('today').style.width=`${today_percent}%`;
