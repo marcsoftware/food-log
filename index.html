@@ -361,6 +361,7 @@ function totalCal(number){
   number=parseFloat(number);
     total_cal_today+=number;
     document.getElementById('count').innerHTML=total_cal_today.toFixed(2);
+    document.title='foodlog: 🍎 '+(total_cal_today.toFixed(2));
 }
 
 /**
