@@ -53,7 +53,7 @@ function GetURLParameter(){
       
       
       xhttp.open("POST", `https://api.fitbit.com/oauth2/token?code=${code}&grant_type=authorization_code&redirect_uri=${callback_url}`, true);
-      xhttp.setRequestHeader('Authorization', 'Basic MjJCVlpDOmRjMTFjNzYwNTA4MjRmYjUwMWRjODhmNWRjYzRlOWE0'); // THIS is base64 of id and another thing.
+      xhttp.setRequestHeader('Authorization', `Basic ${basic}`); // THIS is base64 of id and another thing.
       xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
       xhttp.send();

@@ -4,11 +4,12 @@ var database_url=''; // endpoint of java database
 
 var client_id='';
 
+var basic='';
 function drawHeader(){
     var handle=document.getElementById('header');
 
     if(handle){
-        handle.innerHTML='<a href="/index.html">food log</a> <a href="/report.html">report</a>  <a href="/fitbit.html">fitbit</a> <a  href="" id="hyperlink">login</a> <a href="/scale.html">scale</a> <a href="/food.html">food</a>'
+        handle.innerHTML='<meta charset="utf-8"/><a href="/index.html">food log</a> <a href="/report.html">report</a>  <a href="/fitbit.html">fitbit</a> <a  href="" id="hyperlink">login</a> <a href="/scale.html">scale</a> <a href="/food.html">food</a>'
     }
 
         setConfig();
@@ -27,15 +28,20 @@ function setConfig(){
           
 
      if(!pageURL.toString().includes('poundreport')){
-            callback_url = `http://localhost:8080/login.html`;  // from fitbit.com app setting page
-            database_url='http://localhost:5000/demo'; // endpoint of java database
+            // if not deployed on poundreport. 
+
+            callback_url = `https://localhost:8080/login.html`;  // from fitbit.com app setting page
+            database_url='https://localhost:5000/demo'; // endpoint of java database
             client_id='22BVZC';
+            basic='MjJCVlpDOmRjMTFjNzYwNTA4MjRmYjUwMWRjODhmNWRjYzRlOWE0';
             console.log('localhost constansts chosen');
 
      }else{
-            database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+            database_url="https://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
             callback_url =`https://poundreport.com/login.html`;
             client_id='22BWQ4';
+            basic='MjJCV1E0OmY0NmYxZGQwYTMwNzcyMzFiNmY2YmZhY2UyMDMwNjVh'; //
+            console.log('deployed constansts chosen');
      }
 
 
