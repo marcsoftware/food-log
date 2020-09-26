@@ -30,8 +30,8 @@ function setConfig(){
      if(!pageURL.toString().includes('poundreport')){
             // if not deployed on poundreport. 
 
-            callback_url = `https://localhost:8080/login.html`;  // from fitbit.com app setting page
-            database_url='https://localhost:5000/demo'; // endpoint of java database
+            callback_url = `http://localhost:8080/login.html`;  // from fitbit.com app setting page
+            database_url='http://localhost:5000/demo'; // endpoint of java database
             client_id='22BVZC';
             global_basic='MjJCVlpDOmRjMTFjNzYwNTA4MjRmYjUwMWRjODhmNWRjYzRlOWE0';
             console.log('localhost constansts chosen');
