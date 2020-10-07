@@ -37,7 +37,9 @@ function setConfig(){
             console.log('localhost constansts chosen');
 
      }else{
-            database_url="https://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+            //database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+            database_url="https://eb.poundreport.com/demo";
+            
             callback_url =`https://poundreport.com/login.html`;
             client_id='22BWQ4';
             global_basic='MjJCV1E0OmY0NmYxZGQwYTMwNzcyMzFiNmY2YmZhY2UyMDMwNjVh'; //

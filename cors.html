@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+
+<html>
+<body>
+<title>test</title>
+<h2>Using the XMLHttpRequest Object</h2>
+
+
+<button type="button" onclick="testEB()">test eb</button>
+<div id="demoEB">
+</div>
+<hr>
+
+<button type="button" onclick="testOpen()">test open</button>
+<div id="demoOpen">
+</div>
+
+<script>
+
+    //----------------------------------------------------
+    //
+    //----------------------------------------------------
+function testEB() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+
+    try{
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("demoEB").innerHTML +=this.responseText;
+
+            }else{
+                document.getElementById("demoEB").innerHTML +=this.responseText;
+            }
+    }catch (e) {
+            console.log(e);
+    }
+  };
+
+  document.getElementById("demoEB").innerHTML ='x';
+
+  console.log('eb');
+
+  xhttp.open("GET", "https://eb.poundreport.com/demo/food", true);
+  xhttp.send();
+}
+
+    //----------------------------------------------------
+    //
+    //----------------------------------------------------
+function testOpen() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demoOpen").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "https://reqres.in/api/users?page=2", true);
+  xhttp.send();
+}
+
+
+
+</script>
+
+</body>
+</html>
