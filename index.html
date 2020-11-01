@@ -243,6 +243,8 @@ function getTotalSmart(target_date) {
     }
   };
   xhttp.open("GET", database_url+"/date/"+target_date, false);
+   xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
   xhttp.send();
 }
 
@@ -311,6 +313,8 @@ function getStats(){
         }
       };
     xhttp.open("GET", database_url+"/stats/"+name, true);
+     xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
     xhttp.send();
 }
 
@@ -382,6 +386,8 @@ function getAllFood() {
     }
   };
   xhttp.open("GET", database_url+"/food", true);
+   xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
   xhttp.send();
 }
 
@@ -408,6 +414,8 @@ function getAllFoodOnDate() {
     }
   };
   xhttp.open("GET", database_url+"/date/"+getDate(), true);
+   xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
   xhttp.send();
 }
 
@@ -460,6 +468,8 @@ function getAllNames() {
     }
   };
   xhttp.open("GET", database_url+"/list", true);
+   xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
   xhttp.send();
 }
 
@@ -535,7 +545,8 @@ function save(){
                             "time": "${getTime()}",
                             "userName":"marc"
                         }`;
-
+ xmlhttp.setRequestHeader('Content-Type','application/json');
+  xmlhttp.setRequestHeader('Accept','application/json');
         xmlhttp.send(body);
         
 }
