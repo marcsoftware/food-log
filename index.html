@@ -242,7 +242,7 @@ function getTotalSmart(target_date) {
 
     }
   };
-  xhttp.open("GET", database_url+"/date/"+target_date, false);
+  xhttp.open("GET", database_url+"/date/"+target_date, true);
    xhttp.setRequestHeader('Content-Type','application/json');
   xhttp.setRequestHeader('Accept','application/json');
   xhttp.send();
