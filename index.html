@@ -138,7 +138,7 @@ function init(){
     getAllNames();
     getWeekCalories();
     //drawGraph();
-    getCookie("name");
+    getCookie();
 
 }
 
@@ -147,7 +147,8 @@ function init(){
 //
 //---------------------------------------------------------------------
 */
-function getCookie(cname) {
+function getCookie() {
+  var cname="name";
   console.log(document.cookie);
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -253,6 +254,7 @@ var avg_array=[];
 window.calorie_array=[];
 function getTotalSmart(target_date) {
 
+  getCookie();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -323,6 +325,7 @@ function getAverage(some_array){
 
 var stats;
 function getStats(){
+  getCookie();
     name=document.getElementById('name').value;
     if(name===''){
       return;
@@ -402,6 +405,7 @@ function totalCal(number){
 */
  // get all food items from database   
 function getAllFood() {
+  getCookie();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -427,7 +431,7 @@ function getAllFood() {
 */
  // get all food items from database   
 function getAllFoodOnDate() {
-
+  getCookie();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -477,6 +481,7 @@ function getSum(obj){
 */
  // get all food items from database   
 function getAllNames() {
+  getCookie();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -507,7 +512,7 @@ function getAllNames() {
 */
 // save form to database
 function save(){
-        
+        getCookie();
         getFormData();
         convert();
         doAlgebra();
