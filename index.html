@@ -134,7 +134,8 @@ window.onload=init;
 function init(){
 
     drawHeader();
-    getAllFoodOnDate();
+    //getAllFoodOnDate();
+    test();
     getAllNames();
     getWeekCalories();
     //drawGraph();
@@ -255,7 +256,7 @@ var calorie_array=[];
 var avg_array=[];
 window.calorie_array=[];
 function getTotalSmart(target_date) {
-  
+  return; // TODO temperary remove
   getCookie();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -432,7 +433,7 @@ function getAllFood() {
 //---------------------------------------------------------------------
 */
  // get all food items from database   
-function getAllFoodOnDate() {
+function getAllFoodOnDateORIGINAL() { // TODO you can delete this
   getCookie();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -455,11 +456,63 @@ function getAllFoodOnDate() {
 }
 
 
+
+/**
+//---------------------------------------------------------------------
+//  @GetMapping(path = "/date/{date}")
+//---------------------------------------------------------------------
+*/
+ // get all food items from database   
+function getAllFoodOnDate() {
+  getCookie();
+
+          var xmlhttp = new XMLHttpRequest();
+          var theUrl = database_url+"/date/"+getDate(); 
+          xmlhttp.open("GET", theUrl,flag);
+          
+
+          xmlhttp.onreadystatechange = function() {
+
+            if (this.readyState == 4 && this.status == 200) {
+
+                    console.log('got on date');
+                    total_cal_today=0.0;
+                    document.getElementById('log').innerHTML='';
+                    var result=this.responseText;
+                    var obj = JSON.parse(result); 
+                    printJSON(obj);
+
+            }
+
+          };
+
+
+          var body = `
+
+          {
+
+              "name": "fakelogin",
+
+
+              "email": "hardcoded@gmail.com",
+
+              "idToken": "invalidtoekn"
+
+          }`;
+
+          xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8"');
+
+          xmlhttp.setRequestHeader('Accept','application/json;charset=UTF-8"');
+
+          xmlhttp.send(body);
+
+}
+
+
+
 // TODO move this variables ?
 var day_totals=[];
 window.global_totals=[];
-
-
 
 
 
@@ -538,25 +591,6 @@ function save(){
             }
         };
 
- //TODO check undefined
-      /*
-         {
-
-                          {
-
-                            "name": "coke",
-                            "consumed_calories": ,
-                            "consumed_label": "b",
-                            "consumed_unit": 1,
-                            "ratio_calories": ,
-                            "ratio_label": "null",
-                            "ratio_unit": 0,
-                            "date": "07-09-2020",
-                            "time": "04:09:02",
-                            "userName":"marc"
-                        }
-                        }
-                            */
 
 
         if(ratio_cal == ''){
@@ -580,6 +614,66 @@ function save(){
                             "date": "${getDate()}",
                             "time": "${getTime()}",
                             "userName":"${global_name}"
+                        }`;
+ xmlhttp.setRequestHeader('Content-Type','application/json');
+  xmlhttp.setRequestHeader('Accept','application/json');
+        xmlhttp.send(body);
+        
+}
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+// save form to database
+function test(){
+        getCookie();
+        getFormData();
+        convert();
+        doAlgebra();
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+        var theUrl = database_url+"/date/11-21-2020";
+        xmlhttp.open("POST", theUrl);
+        xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+       
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                 document.getElementById('log').innerHTML='';
+                 getAllFoodOnDate();
+                 clearFormData();
+                 
+
+            }
+        };
+
+
+
+        if(ratio_cal == ''){
+            ratio_cal='0';
+        }  
+
+        if(total_cal == ''){
+            total_cal='0';
+        }  
+
+        var body = `
+                        {
+
+                            "name": "${name}",
+                            "consumed_calories": 99,
+                            "consumed_label": "hard",
+                            "consumed_unit": hard,
+                            "ratio_calories": 99,
+                            "ratio_label": "hard",
+                            "ratio_unit": 99,
+                            "date": "${getDate()}",
+                            "time": "${getTime()}",
+                            "userName":"fakelogin"
                         }`;
  xmlhttp.setRequestHeader('Content-Type','application/json');
   xmlhttp.setRequestHeader('Accept','application/json');
