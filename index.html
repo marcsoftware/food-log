@@ -147,6 +147,7 @@ function init(){
 //
 //---------------------------------------------------------------------
 */
+var global_name='';
 function getCookie() {
   var cname="name";
   console.log(document.cookie);
@@ -160,6 +161,7 @@ function getCookie() {
     }
     if (c.indexOf(name) == 0) {
       var result = c.substring(name.length, c.length);
+      global_name=result;
       document.getElementById('cookie').innerHTML=result;
       return result;
     }
@@ -253,7 +255,7 @@ var calorie_array=[];
 var avg_array=[];
 window.calorie_array=[];
 function getTotalSmart(target_date) {
-
+  
   getCookie();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -444,6 +446,8 @@ function getAllFoodOnDate() {
       
     }
   };
+
+  // TODO add the username as a json body
   xhttp.open("GET", database_url+"/date/"+getDate(), flag);
    xhttp.setRequestHeader('Content-Type','application/json');
   xhttp.setRequestHeader('Accept','application/json');
@@ -575,7 +579,7 @@ function save(){
                             "ratio_unit": ${ratio_amount_unit},
                             "date": "${getDate()}",
                             "time": "${getTime()}",
-                            "userName":"marc"
+                            "userName":"${global_name}"
                         }`;
  xmlhttp.setRequestHeader('Content-Type','application/json');
   xmlhttp.setRequestHeader('Accept','application/json');
@@ -713,6 +717,12 @@ function convert(){
         // pre-condition: should call doUnitConversion(item) before this one to make sure units match
         function doAlgebra(){
             var index;
+
+              if(stats == null){
+                  console.log('doAlgebra() stats is undefined');
+                  return;
+
+              }
              if(stats.indexOf('g')>=0 && ratio_amount_label ==='null' && total_amount_label==='oz'){
                     index=stats.indexOf('g'); //TODO refactor this
                     
