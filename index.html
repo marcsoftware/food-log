@@ -642,7 +642,7 @@ function testUser(){
         var theUrl = database_url+"/testUser";
         xmlhttp.open("POST", theUrl,flag);
         
-
+ 
        
 
         xmlhttp.onreadystatechange = function() {
@@ -652,9 +652,7 @@ function testUser(){
                  console.log('testUser() worked'+theUrl);
                  
 
-            }
-
-            if (this.readyState == 4 && this.status == 400) {
+            }else if(this.readyState == 4 && this.status == 400){
                  document.getElementById('log').innerHTML='';
                  
                  console.log('testUser() is brocken'+theUrl);
@@ -675,12 +673,12 @@ function testUser(){
         }  
 
       
-           var body = `
-                        {
+           var body = ` {
 
                             "name": "fakelogin",
-                         
-                            "userName":"fakelogin"
+                            "email": 200,
+                            "idToken": "box"
+ 
                         }`;
  xmlhttp.setRequestHeader('Content-Type','application/json');
   xmlhttp.setRequestHeader('Accept','application/json');
@@ -909,7 +907,7 @@ function convert(){
 <title>food log</title>
 </head>
 <body>
- 
+ <button onclick="testUser()">Try it</button>
 <div id='header'></div>
 <h2>food log</h2>
 
