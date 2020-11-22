@@ -576,8 +576,9 @@ function save(){
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
         var theUrl = database_url+"/food";
+
         xmlhttp.open("POST", theUrl);
-        xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        
 
        
 
@@ -622,33 +623,45 @@ function save(){
 }
 
 
+
+
+
 /**
 //---------------------------------------------------------------------
-//
+
 //---------------------------------------------------------------------
 */
-// save form to database
-function test(){
+// 
+function testUser(){
         getCookie();
-        getFormData();
-        convert();
-        doAlgebra();
+        
+        
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-        var theUrl = database_url+"/date/11-21-2020";
-        xmlhttp.open("POST", theUrl);
-        xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        //var theUrl = database_url+"/date/11-22-2020";
+        var theUrl = database_url+"/testUser";
+        xmlhttp.open("POST", theUrl,flag);
+        
 
        
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                  document.getElementById('log').innerHTML='';
-                 getAllFoodOnDate();
-                 clearFormData();
+                 console.log('response: '+ xmlhttp.responseText);
+                 console.log('testUser() worked'+theUrl);
                  
 
             }
+
+            if (this.readyState == 4 && this.status == 400) {
+                 document.getElementById('log').innerHTML='';
+                 
+                 console.log('testUser() is brocken'+theUrl);
+                 
+
+            }
+            
         };
 
 
@@ -661,18 +674,12 @@ function test(){
             total_cal='0';
         }  
 
-        var body = `
+      
+           var body = `
                         {
 
-                            "name": "${name}",
-                            "consumed_calories": 99,
-                            "consumed_label": "hard",
-                            "consumed_unit": hard,
-                            "ratio_calories": 99,
-                            "ratio_label": "hard",
-                            "ratio_unit": 99,
-                            "date": "${getDate()}",
-                            "time": "${getTime()}",
+                            "name": "fakelogin",
+                         
                             "userName":"fakelogin"
                         }`;
  xmlhttp.setRequestHeader('Content-Type','application/json');
@@ -902,6 +909,7 @@ function convert(){
 <title>food log</title>
 </head>
 <body>
+ 
 <div id='header'></div>
 <h2>food log</h2>
 
