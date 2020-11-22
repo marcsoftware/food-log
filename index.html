@@ -134,8 +134,8 @@ window.onload=init;
 function init(){
 
     drawHeader();
-    //getAllFoodOnDate();
-    test();
+    getAllFoodOnDate();
+    
     getAllNames();
     getWeekCalories();
     //drawGraph();
@@ -427,86 +427,7 @@ function getAllFood() {
 
 
 
-/**
-//---------------------------------------------------------------------
-//  @GetMapping(path = "/date/{date}")
-//---------------------------------------------------------------------
-*/
- // get all food items from database   
-function getAllFoodOnDateORIGINAL() { // TODO you can delete this
-  getCookie();
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
-        document.getElementById('log').innerHTML='';
-        var result=this.responseText;
-        var obj = JSON.parse(result); 
-        printJSON(obj);
-      
-      
-    }
-  };
 
-  // TODO add the username as a json body
-  xhttp.open("GET", database_url+"/date/"+getDate(), flag);
-   xhttp.setRequestHeader('Content-Type','application/json');
-  xhttp.setRequestHeader('Accept','application/json');
-  xhttp.send();
-}
-
-
-
-/**
-//---------------------------------------------------------------------
-//  @GetMapping(path = "/date/{date}")
-//---------------------------------------------------------------------
-*/
- // get all food items from database   
-function getAllFoodOnDate() {
-  getCookie();
-
-          var xmlhttp = new XMLHttpRequest();
-          var theUrl = database_url+"/date/"+getDate(); 
-          xmlhttp.open("GET", theUrl,flag);
-          
-
-          xmlhttp.onreadystatechange = function() {
-
-            if (this.readyState == 4 && this.status == 200) {
-
-                    console.log('got on date');
-                    total_cal_today=0.0;
-                    document.getElementById('log').innerHTML='';
-                    var result=this.responseText;
-                    var obj = JSON.parse(result); 
-                    printJSON(obj);
-
-            }
-
-          };
-
-
-          var body = `
-
-          {
-
-              "name": "fakelogin",
-
-
-              "email": "hardcoded@gmail.com",
-
-              "idToken": "invalidtoekn"
-
-          }`;
-
-          xmlhttp.setRequestHeader('Content-Type','application/json;charset=UTF-8"');
-
-          xmlhttp.setRequestHeader('Accept','application/json;charset=UTF-8"');
-
-          xmlhttp.send(body);
-
-}
 
 
 
@@ -632,24 +553,27 @@ function save(){
 //---------------------------------------------------------------------
 */
 // 
-function testUser(){
+function getAllFoodOnDate(){
         getCookie();
         
         
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
         //var theUrl = database_url+"/date/11-22-2020";
-        var theUrl = database_url+"/testUser";
-        xmlhttp.open("POST", theUrl,flag);
+        var theUrl = database_url+"/testUser/11-22-2020";
+        //var theUrl = database_url+"/testUser";
+        xmlhttp.open("GET", theUrl,flag);
         
 
        
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                 document.getElementById('log').innerHTML='';
-                 console.log('response: '+ xmlhttp.responseText);
-                 console.log('testUser() worked'+theUrl);
+                total_cal_today=0.0;
+                document.getElementById('log').innerHTML='';
+                var result=this.responseText;
+                var obj = JSON.parse(result); 
+                printJSON(obj);
                  
 
             }
@@ -657,7 +581,7 @@ function testUser(){
             if (this.readyState == 4 && this.status == 400) {
                  document.getElementById('log').innerHTML='';
                  
-                 console.log('testUser() is brocken'+theUrl);
+                 
                  
 
             }
@@ -666,14 +590,7 @@ function testUser(){
 
 
 
-        if(ratio_cal == ''){
-            ratio_cal='0';
-        }  
-
-        if(total_cal == ''){
-            total_cal='0';
-        }  
-
+   
       
            var body = `
                         {
@@ -687,6 +604,11 @@ function testUser(){
         xmlhttp.send(body);
         
 }
+
+
+
+
+
 
 /**
 //---------------------------------------------------------------------
